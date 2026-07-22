@@ -3,7 +3,7 @@
              x:Class="DotX.Desktop.App"
              xmlns:local="using:DotX.Desktop"
              xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-             RequestedThemeVariant="Light">
+             RequestedThemeVariant="Dark">
 
     <Application.DataTemplates>
         <local:ViewLocator />

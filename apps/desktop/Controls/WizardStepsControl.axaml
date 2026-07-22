@@ -1,53 +1,33 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="DotX.Desktop.Controls.WizardStepsControl">
-    <Border Classes="Card" Padding="24,16">
+    <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,0,1" Padding="0,0,0,16" Margin="0,0,0,24">
         <Grid ColumnDefinitions="Auto,*,Auto,*,Auto,*,Auto">
             <!-- Step 1 -->
-            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
-                <Border Background="{StaticResource PrimaryBrush}" CornerRadius="16" Width="32" Height="32">
-                    <TextBlock Text="1" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" />
-                </Border>
-                <StackPanel VerticalAlignment="Center">
-                    <TextBlock Text="Upload Documents" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" />
-                    <TextBlock Text="Add requirement docs" FontSize="12" Foreground="{StaticResource TextLightBrush}" />
-                </StackPanel>
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                <TextBlock Text="01" Foreground="{StaticResource PrimaryBrush}" FontWeight="Bold" FontSize="11" VerticalAlignment="Center" />
+                <TextBlock Text="Requirements" FontWeight="SemiBold" FontSize="13" Foreground="{StaticResource TextDarkBrush}" VerticalAlignment="Center" />
             </StackPanel>
             <Border Grid.Column="1" Height="1" Background="{StaticResource PrimaryBrush}" Margin="16,0" />
             
             <!-- Step 2 -->
-            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="12" VerticalAlignment="Center" Opacity="0.5">
-                <Border Background="{StaticResource BorderBrush}" CornerRadius="16" Width="32" Height="32">
-                    <TextBlock Text="2" Foreground="{StaticResource TextDarkBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" />
-                </Border>
-                <StackPanel VerticalAlignment="Center">
-                    <TextBlock Text="Generate Agents" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" />
-                    <TextBlock Text="AI creates agent team" FontSize="12" Foreground="{StaticResource TextLightBrush}" />
-                </StackPanel>
+            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center" Opacity="0.4">
+                <TextBlock Text="02" Foreground="{StaticResource TextDarkBrush}" FontWeight="Bold" FontSize="11" VerticalAlignment="Center" />
+                <TextBlock Text="Agents" FontWeight="SemiBold" FontSize="13" Foreground="{StaticResource TextDarkBrush}" VerticalAlignment="Center" />
             </StackPanel>
             <Border Grid.Column="3" Height="1" Background="{StaticResource BorderBrush}" Margin="16,0" />
 
             <!-- Step 3 -->
-            <StackPanel Grid.Column="4" Orientation="Horizontal" Spacing="12" VerticalAlignment="Center" Opacity="0.5">
-                <Border Background="{StaticResource BorderBrush}" CornerRadius="16" Width="32" Height="32">
-                    <TextBlock Text="3" Foreground="{StaticResource TextDarkBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" />
-                </Border>
-                <StackPanel VerticalAlignment="Center">
-                    <TextBlock Text="Analysis &amp; Planning" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" />
-                    <TextBlock Text="AI analyzes &amp; plans" FontSize="12" Foreground="{StaticResource TextLightBrush}" />
-                </StackPanel>
+            <StackPanel Grid.Column="4" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center" Opacity="0.4">
+                <TextBlock Text="03" Foreground="{StaticResource TextDarkBrush}" FontWeight="Bold" FontSize="11" VerticalAlignment="Center" />
+                <TextBlock Text="Analysis" FontWeight="SemiBold" FontSize="13" Foreground="{StaticResource TextDarkBrush}" VerticalAlignment="Center" />
             </StackPanel>
             <Border Grid.Column="5" Height="1" Background="{StaticResource BorderBrush}" Margin="16,0" />
 
             <!-- Step 4 -->
-            <StackPanel Grid.Column="6" Orientation="Horizontal" Spacing="12" VerticalAlignment="Center" Opacity="0.5">
-                <Border Background="{StaticResource BorderBrush}" CornerRadius="16" Width="32" Height="32">
-                    <TextBlock Text="4" Foreground="{StaticResource TextDarkBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" />
-                </Border>
-                <StackPanel VerticalAlignment="Center">
-                    <TextBlock Text="Development" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" />
-                    <TextBlock Text="Agents start building" FontSize="12" Foreground="{StaticResource TextLightBrush}" />
-                </StackPanel>
+            <StackPanel Grid.Column="6" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center" Opacity="0.4">
+                <TextBlock Text="04" Foreground="{StaticResource TextDarkBrush}" FontWeight="Bold" FontSize="11" VerticalAlignment="Center" />
+                <TextBlock Text="Development" FontWeight="SemiBold" FontSize="13" Foreground="{StaticResource TextDarkBrush}" VerticalAlignment="Center" />
             </StackPanel>
         </Grid>
     </Border>

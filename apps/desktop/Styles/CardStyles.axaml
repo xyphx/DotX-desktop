@@ -5,6 +5,5 @@
         <Setter Property="CornerRadius" Value="8"/>
         <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="BoxShadow" Value="0 2 4 0 #0A000000"/>
     </Style>
 </Styles>

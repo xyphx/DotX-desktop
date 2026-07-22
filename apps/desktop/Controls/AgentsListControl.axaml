@@ -4,36 +4,32 @@
              xmlns:vm="using:DotX.Desktop.ViewModels.Components"
              x:DataType="vm:AgentsListViewModel"
              x:Class="DotX.Desktop.Controls.AgentsListControl">
-    <Border Classes="Card" Padding="20">
+    <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="6" Padding="16">
         <StackPanel Spacing="16">
-            <StackPanel Spacing="4">
-                <TextBlock Text="AI Agents That Will Be Generated" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" TextWrapping="Wrap" />
-                <TextBlock Text="Based on your requirements, .X will create the following agents:" FontSize="12" Foreground="{StaticResource TextLightBrush}" TextWrapping="Wrap" />
+            <StackPanel Spacing="4" Margin="0,0,0,8">
+                <TextBlock Text="AI Agents" FontWeight="Bold" FontSize="14" Foreground="{StaticResource TextDarkBrush}" />
+                <TextBlock Text="Generated based on requirements" FontSize="12" Foreground="{StaticResource TextLightBrush}" />
             </StackPanel>
             
             <ItemsControl ItemsSource="{Binding Agents}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid ColumnDefinitions="Auto, *, Auto" Margin="0,0,0,16">
-                            <Border Grid.Column="0" Background="#F0F9FF" CornerRadius="8" Width="40" Height="40" VerticalAlignment="Top">
-                                <materialIcons:MaterialIcon Kind="{Binding Icon}" Foreground="{StaticResource PrimaryBrush}" Width="20" Height="20" />
-                            </Border>
-                            <StackPanel Grid.Column="1" Margin="12,0" VerticalAlignment="Center">
+                            <materialIcons:MaterialIcon Grid.Column="0" Kind="{Binding Icon}" Foreground="{StaticResource TextLightBrush}" Width="16" Height="16" VerticalAlignment="Top" Margin="0,2,0,0" />
+                            <StackPanel Grid.Column="1" Margin="12,0" VerticalAlignment="Top">
                                 <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="13" Foreground="{StaticResource TextDarkBrush}" />
                                 <TextBlock Text="{Binding Description}" FontSize="12" Foreground="{StaticResource TextLightBrush}" TextWrapping="Wrap" />
                             </StackPanel>
-                            <Border Grid.Column="2" Background="#EEF2FF" CornerRadius="4" Padding="8,4" VerticalAlignment="Top">
-                                <TextBlock Text="{Binding Status}" FontSize="10" FontWeight="SemiBold" Foreground="{StaticResource PrimaryBrush}" />
-                            </Border>
+                            <TextBlock Grid.Column="2" Text="{Binding Status}" FontSize="10" FontWeight="SemiBold" Foreground="{StaticResource PrimaryBrush}" VerticalAlignment="Top" Margin="0,2,0,0" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
             
-            <Button Classes="Outline" HorizontalAlignment="Stretch" BorderThickness="0" BorderBrush="Transparent">
+            <Button Classes="Outline" HorizontalAlignment="Stretch" BorderThickness="0" BorderBrush="Transparent" Margin="0,8,0,0">
                 <StackPanel Orientation="Horizontal" Spacing="8">
-                    <materialIcons:MaterialIcon Kind="Grid" Width="16" Height="16" />
-                    <TextBlock Text="View All Agents" />
+                    <TextBlock Text="View All Agents" FontSize="12" />
+                    <materialIcons:MaterialIcon Kind="ArrowRight" Width="14" Height="14" />
                 </StackPanel>
             </Button>
         </StackPanel>
