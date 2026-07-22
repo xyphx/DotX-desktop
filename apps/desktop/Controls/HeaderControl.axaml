@@ -1,0 +1,11 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="DotX.Desktop.Controls.HeaderControl">
+    <Grid ColumnDefinitions="*, Auto" Margin="0,0,0,24">
+        <StackPanel Grid.Column="0" Spacing="8">
+            <TextBlock Text="New Project" FontSize="28" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" />
+            <TextBlock Text="Upload your requirement documents and let .X build your dream product" FontSize="14" Foreground="{StaticResource TextLightBrush}" />
+        </StackPanel>
+        <Button Grid.Column="1" Classes="Outline" Content="View All Projects →" VerticalAlignment="Top" Padding="12,8" />
+    </Grid>
+</UserControl>

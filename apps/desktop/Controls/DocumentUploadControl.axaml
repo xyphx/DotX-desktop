@@ -1,0 +1,98 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:vm="using:DotX.Desktop.ViewModels.Components"
+             x:DataType="vm:DocumentUploadViewModel"
+             x:Class="DotX.Desktop.Controls.DocumentUploadControl">
+    <StackPanel Spacing="24">
+        <!-- Step Header -->
+        <Grid ColumnDefinitions="*, Auto" Margin="0,8,0,0">
+            <StackPanel Grid.Column="0" Spacing="8">
+                <TextBlock Text="Step 1: Upload Requirement Documents" FontSize="18" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" />
+                <TextBlock Text="Please upload the following documents. Make sure they are properly indexed." FontSize="14" Foreground="{StaticResource TextLightBrush}" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="4" VerticalAlignment="Top">
+                <TextBlock Text="Why three documents?" FontSize="14" Foreground="{StaticResource PrimaryBrush}" />
+                <materialIcons:MaterialIcon Kind="InformationOutline" Width="16" Height="16" Foreground="{StaticResource PrimaryBrush}" />
+            </StackPanel>
+        </Grid>
+
+        <!-- Document Cards -->
+        <ItemsControl ItemsSource="{Binding Documents}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Rows="1" Columns="3" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Classes="Card" Margin="8,0" Padding="20">
+                        <Grid RowDefinitions="Auto, Auto, Auto, Auto, *, Auto">
+                            <!-- Document Icon -->
+                            <Border Grid.Row="0" Background="#F0F9FF" CornerRadius="8" Width="48" Height="48" HorizontalAlignment="Left" Margin="0,0,0,16">
+                                <materialIcons:MaterialIcon Kind="FileDocumentOutline" Width="24" Height="24" Foreground="{StaticResource PrimaryBrush}" />
+                            </Border>
+                            
+                            <!-- Title -->
+                            <TextBlock Grid.Row="1" Text="{Binding Name}" FontWeight="Bold" FontSize="14" Foreground="{StaticResource TextDarkBrush}" Margin="0,0,0,8" TextWrapping="Wrap" />
+                            
+                            <!-- Badge -->
+                            <Border Grid.Row="2" Background="#ECFDF5" BorderBrush="#34D399" BorderThickness="1" CornerRadius="4" HorizontalAlignment="Left" Padding="6,2" Margin="0,0,0,12">
+                                <TextBlock Text="Required" FontSize="10" FontWeight="SemiBold" Foreground="#059669" />
+                            </Border>
+                            
+                            <!-- Description -->
+                            <TextBlock Grid.Row="3" Text="{Binding Description}" FontSize="12" Foreground="{StaticResource TextLightBrush}" TextWrapping="Wrap" Margin="0,0,0,24" MinHeight="60" />
+                            
+                            <!-- Drop Area -->
+                            <Border Grid.Row="4" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="6" Background="#F8FAFC" Padding="16" Margin="0,0,0,16">
+                                <StackPanel HorizontalAlignment="Center" Spacing="8">
+                                    <materialIcons:MaterialIcon Kind="TrayArrowUp" Width="24" Height="24" Foreground="{StaticResource TextLightBrush}" HorizontalAlignment="Center" />
+                                    <TextBlock Text="Drag &amp; drop file here" FontSize="12" FontWeight="SemiBold" HorizontalAlignment="Center" />
+                                    <TextBlock Text="or click to browse" FontSize="12" Foreground="{StaticResource PrimaryBrush}" HorizontalAlignment="Center" />
+                                    <TextBlock Text="PDF, DOCX, TXT (Max 20MB)" FontSize="10" Foreground="{StaticResource TextLightBrush}" HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+                            
+                            <!-- Uploaded File -->
+                            <Border Grid.Row="5" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="6" Padding="12" IsVisible="{Binding IsUploaded}">
+                                <Grid ColumnDefinitions="Auto, *, Auto">
+                                    <materialIcons:MaterialIcon Grid.Column="0" Kind="FilePdfBox" Foreground="#EF4444" Width="24" Height="24" />
+                                    <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding FileName}" FontSize="12" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+                                        <TextBlock Text="{Binding FileSize}" FontSize="10" Foreground="{StaticResource TextLightBrush}" />
+                                    </StackPanel>
+                                    <materialIcons:MaterialIcon Grid.Column="2" Kind="CheckCircle" Foreground="{StaticResource SuccessBrush}" Width="20" Height="20" />
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <!-- Info Box -->
+        <Border Background="#EFF6FF" BorderBrush="#BFDBFE" BorderThickness="1" CornerRadius="8" Padding="16" Margin="8,0">
+            <StackPanel Orientation="Horizontal" Spacing="12">
+                <materialIcons:MaterialIcon Kind="InformationOutline" Foreground="{StaticResource PrimaryBrush}" Width="20" Height="20" />
+                <TextBlock Text="All documents should be indexed (1, 2, 3...) and well-structured for better AI understanding." Foreground="#1E3A8A" VerticalAlignment="Center" />
+            </StackPanel>
+        </Border>
+
+        <!-- Footer Actions -->
+        <Grid ColumnDefinitions="Auto, *, Auto" Margin="8,16,8,0">
+            <Button Grid.Column="0" Classes="Outline" Padding="24,12">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <materialIcons:MaterialIcon Kind="ShieldCheckOutline" Width="20" Height="20" />
+                    <TextBlock Text="Validate Documents" />
+                </StackPanel>
+            </Button>
+            <Button Grid.Column="2" Classes="Primary" Padding="24,12">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <TextBlock Text="Upload &amp; Generate Agents" />
+                    <materialIcons:MaterialIcon Kind="ArrowRight" Width="20" Height="20" />
+                </StackPanel>
+            </Button>
+        </Grid>
+    </StackPanel>
+</UserControl>

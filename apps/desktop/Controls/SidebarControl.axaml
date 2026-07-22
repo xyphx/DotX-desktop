@@ -1,0 +1,78 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:vm="using:DotX.Desktop.ViewModels.Components"
+             x:DataType="vm:SidebarViewModel"
+             x:Class="DotX.Desktop.Controls.SidebarControl">
+    <Border Background="{StaticResource SidebarBackgroundBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,1,0">
+        <Grid RowDefinitions="Auto, Auto, *, Auto, Auto, Auto" Margin="16">
+            <!-- Logo -->
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="8,8,0,24">
+                <Image Source="/Assets/logo.png" Width="32" Height="32" HorizontalAlignment="Left" />
+            </StackPanel>
+
+            <!-- New Project Button -->
+            <Button Grid.Row="1" Classes="Primary" HorizontalAlignment="Stretch" Margin="0,0,0,24">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <materialIcons:MaterialIcon Kind="Plus" Width="16" Height="16" />
+                    <TextBlock Text="New Project" />
+                </StackPanel>
+            </Button>
+
+            <!-- Navigation List -->
+            <ListBox Grid.Row="2" ItemsSource="{Binding NavItems}" Background="Transparent" BorderThickness="0" Margin="-8,0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Background="Transparent">
+                            <Border Background="{StaticResource BackgroundBrush}" 
+                                    IsVisible="{Binding IsActive}" 
+                                    CornerRadius="6" 
+                                    Margin="0,0,0,0" />
+                            <StackPanel Orientation="Horizontal" Spacing="12" Margin="16,10">
+                                <materialIcons:MaterialIcon Kind="{Binding Icon}" 
+                                                          Width="20" Height="20" 
+                                                          Foreground="{Binding IsActive, Converter={x:Static ObjectConverters.IsNull}}" /> 
+                                <TextBlock Text="{Binding Title}" VerticalAlignment="Center" /> 
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.Styles>
+                    <Style Selector="ListBoxItem">
+                        <Setter Property="Padding" Value="0"/>
+                    </Style>
+                </ListBox.Styles>
+            </ListBox>
+
+            <!-- Pro Upgrade Card -->
+            <Border Grid.Row="3" Classes="Card" Margin="0,16" Padding="16">
+                <StackPanel Spacing="8">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <materialIcons:MaterialIcon Kind="LightningBolt" Foreground="{StaticResource PrimaryBrush}" Width="16" Height="16"/>
+                        <TextBlock Text=".X Pro" FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}" />
+                    </StackPanel>
+                    <TextBlock Text="Unlock advanced agents, private workspaces and more." TextWrapping="Wrap" FontSize="12" Foreground="{StaticResource TextLightBrush}" />
+                    <Button Classes="Outline" Content="Upgrade Now" HorizontalAlignment="Stretch" Margin="0,8,0,0" Padding="8" FontSize="12" />
+                </StackPanel>
+            </Border>
+
+            <!-- Help & Support -->
+            <StackPanel Grid.Row="4" Orientation="Horizontal" Spacing="8" Margin="8,8,0,16">
+                <materialIcons:MaterialIcon Kind="HelpCircleOutline" Width="20" Height="20" Foreground="{StaticResource TextLightBrush}" />
+                <TextBlock Text="Help &amp; Support" Foreground="{StaticResource TextDarkBrush}" />
+            </StackPanel>
+
+            <!-- User Profile -->
+            <Grid Grid.Row="5" ColumnDefinitions="Auto, *, Auto" Margin="0,8,0,0">
+                <Border Grid.Column="0" Background="{StaticResource BackgroundBrush}" CornerRadius="20" Width="32" Height="32">
+                    <TextBlock Text="SD" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold" FontSize="12" Foreground="{StaticResource TextDarkBrush}" />
+                </Border>
+                <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
+                    <TextBlock Text="Sidharth" FontWeight="SemiBold" FontSize="14" Foreground="{StaticResource TextDarkBrush}" />
+                    <TextBlock Text="Free" FontSize="12" Foreground="{StaticResource TextLightBrush}" />
+                </StackPanel>
+                <materialIcons:MaterialIcon Grid.Column="2" Kind="ChevronDown" Width="20" Height="20" Foreground="{StaticResource TextLightBrush}" />
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="DotX.Desktop.Controls.ProjectProgressControl">
+    <Border Classes="Card" Padding="20">
+        <StackPanel Spacing="16">
+            <Grid ColumnDefinitions="*, Auto">
+                <TextBlock Grid.Column="0" Text="Project Progress" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" />
+                <TextBlock Grid.Column="1" Text="0%" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" />
+            </Grid>
+            <ProgressBar Value="0" Height="8" Background="{StaticResource BorderBrush}" Foreground="{StaticResource PrimaryBrush}" CornerRadius="4" />
+            <TextBlock Text="Not started" FontSize="12" Foreground="{StaticResource TextLightBrush}" />
+        </StackPanel>
+    </Border>
+</UserControl>

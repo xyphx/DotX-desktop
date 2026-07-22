@@ -3,20 +3,42 @@
         xmlns:vm="using:DotX.Desktop.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:controls="using:DotX.Desktop.Controls"
+        mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="800"
         x:Class="DotX.Desktop.Views.MainWindow"
         x:DataType="vm:MainViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="DotX.Desktop">
+        Title="DotX"
+        Icon="/Assets/logo.png"
+        Background="{StaticResource BackgroundBrush}"
+        WindowStartupLocation="CenterScreen">
 
     <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainViewModel />
     </Design.DataContext>
 
-    <TextBox Text="{Binding Greeting}"
-             HorizontalAlignment="Center"
-             VerticalAlignment="Center" />
+    <Grid ColumnDefinitions="250, *">
+        <!-- Sidebar -->
+        <controls:SidebarControl Grid.Column="0" DataContext="{Binding Sidebar}" />
 
+        <!-- Main Content -->
+        <Grid Grid.Column="1" RowDefinitions="Auto, *" Margin="32">
+            <!-- Header -->
+            <controls:HeaderControl Grid.Row="0" />
+
+            <!-- Content Area Grid -->
+            <Grid Grid.Row="1" ColumnDefinitions="*, 300">
+                <!-- Left Content -->
+                <StackPanel Grid.Column="0" Spacing="24" Margin="0,0,32,0">
+                    <controls:WizardStepsControl />
+                    <controls:DocumentUploadControl DataContext="{Binding DocumentUpload}" />
+                </StackPanel>
+
+                <!-- Right Sidebar -->
+                <StackPanel Grid.Column="1" Spacing="24">
+                    <controls:ProjectProgressControl />
+                    <controls:AgentsListControl DataContext="{Binding AgentsList}" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
 </Window>
