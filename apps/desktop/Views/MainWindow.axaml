@@ -16,29 +16,6 @@
         <vm:MainViewModel />
     </Design.DataContext>
 
-    <Grid ColumnDefinitions="250, *">
-        <!-- Sidebar -->
-        <controls:SidebarControl Grid.Column="0" DataContext="{Binding Sidebar}" />
-
-        <!-- Main Content -->
-        <Grid Grid.Column="1" RowDefinitions="Auto, *" Margin="32">
-            <!-- Header -->
-            <controls:HeaderControl Grid.Row="0" />
-
-            <!-- Content Area Grid -->
-            <Grid Grid.Row="1" ColumnDefinitions="*, 300">
-                <!-- Left Content -->
-                <StackPanel Grid.Column="0" Spacing="24" Margin="0,0,32,0">
-                    <controls:WizardStepsControl />
-                    <controls:DocumentUploadControl DataContext="{Binding DocumentUpload}" />
-                </StackPanel>
-
-                <!-- Right Sidebar -->
-                <StackPanel Grid.Column="1" Spacing="24">
-                    <controls:ProjectProgressControl />
-                    <controls:AgentsListControl DataContext="{Binding AgentsList}" />
-                </StackPanel>
-            </Grid>
-        </Grid>
-    </Grid>
+    <!-- Content Container (Router) -->
+    <TransitioningContentControl Content="{Binding CurrentPage}" />
 </Window>

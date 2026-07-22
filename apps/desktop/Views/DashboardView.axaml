@@ -1,0 +1,63 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:DotX.Desktop.Controls"
+             xmlns:vm="using:DotX.Desktop.ViewModels"
+             x:DataType="vm:DashboardViewModel"
+             x:Class="DotX.Desktop.Views.DashboardView">
+    <Grid RowDefinitions="Auto, *">
+        <!-- Top Menu Bar -->
+        <Border Grid.Row="0" Background="{StaticResource SidebarBackgroundBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,0,1">
+            <Grid Margin="8,0">
+                <Menu HorizontalAlignment="Left">
+                    <Menu.Styles>
+                        <Style Selector="MenuItem">
+                            <Setter Property="FontSize" Value="12" />
+                            <Setter Property="Padding" Value="10,6" />
+                            <Setter Property="MinHeight" Value="30" />
+                        </Style>
+                    </Menu.Styles>
+                    <MenuItem Header="File" />
+                    <MenuItem Header="Edit" />
+                    <MenuItem Header="Selection" />
+                    <MenuItem Header="View" />
+                    <MenuItem Header="Go" />
+                    <MenuItem Header="Run" />
+                    <MenuItem Header="Terminal" />
+                    <MenuItem Header="Help" />
+                </Menu>
+                
+                <TextBlock Text="desktop - DotX IDE - Project.axaml" 
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center" 
+                           FontSize="12" 
+                           Foreground="{StaticResource TextLightBrush}" />
+            </Grid>
+        </Border>
+        
+        <Grid Grid.Row="1" ColumnDefinitions="250, *">
+            <!-- Sidebar -->
+            <controls:SidebarControl Grid.Column="0" DataContext="{Binding Sidebar}" />
+
+            <!-- Main Content -->
+            <Grid Grid.Column="1" RowDefinitions="Auto, *" Margin="32">
+                <!-- Header -->
+                <controls:HeaderControl Grid.Row="0" />
+
+                <!-- Content Area Grid -->
+                <Grid Grid.Row="1" ColumnDefinitions="*, 300">
+                    <!-- Left Content -->
+                    <StackPanel Grid.Column="0" Spacing="24" Margin="0,0,32,0">
+                        <controls:WizardStepsControl />
+                        <controls:DocumentUploadControl DataContext="{Binding DocumentUpload}" />
+                    </StackPanel>
+
+                    <!-- Right Sidebar -->
+                    <StackPanel Grid.Column="1" Spacing="24">
+                        <controls:ProjectProgressControl />
+                        <controls:AgentsListControl DataContext="{Binding AgentsList}" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>
