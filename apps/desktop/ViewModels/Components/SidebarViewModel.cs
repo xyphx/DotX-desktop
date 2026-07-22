@@ -1,5 +1,7 @@
+using System;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using DotX.Desktop.Models;
 
 namespace DotX.Desktop.ViewModels.Components;
@@ -22,5 +24,17 @@ public partial class SidebarViewModel : ViewModelBase
             new NavItemModel { Title = "History", Icon = "History" },
             new NavItemModel { Title = "Settings", Icon = "Cog" }
         };
+    }
+
+    [RelayCommand]
+    public void NewProject()
+    {
+        Console.WriteLine("New Project Requested");
+    }
+
+    [RelayCommand]
+    public void Upgrade()
+    {
+        Console.WriteLine("Upgrade Requested");
     }
 }

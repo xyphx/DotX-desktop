@@ -1,12 +1,27 @@
+using CommunityToolkit.Mvvm.ComponentModel;
+
 namespace DotX.Desktop.Models;
 
-public class DocumentModel
+public partial class DocumentModel : ObservableObject
 {
-    public string Name { get; set; } = string.Empty;
-    public string Title { get; set; } = string.Empty;
-    public string Description { get; set; } = string.Empty;
-    public string Status { get; set; } = "Required";
-    public string FileName { get; set; } = string.Empty;
-    public string FileSize { get; set; } = string.Empty;
-    public bool IsUploaded { get; set; } = false;
+    [ObservableProperty]
+    private string _name = string.Empty;
+
+    [ObservableProperty]
+    private string _title = string.Empty;
+
+    [ObservableProperty]
+    private string _description = string.Empty;
+
+    [ObservableProperty]
+    private string _status = "Required";
+
+    [ObservableProperty]
+    private string _fileName = string.Empty;
+
+    [ObservableProperty]
+    private string _fileSize = string.Empty;
+
+    [ObservableProperty]
+    private bool _isUploaded = false;
 }
