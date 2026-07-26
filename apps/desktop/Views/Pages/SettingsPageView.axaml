@@ -1,0 +1,153 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:vm="using:DotX.Desktop.ViewModels.Pages"
+             x:DataType="vm:SettingsPageViewModel"
+             x:Class="DotX.Desktop.Views.Pages.SettingsPageView">
+    
+    <ScrollViewer>
+        <Grid RowDefinitions="Auto, *" Margin="32">
+            <!-- Header -->
+            <StackPanel Grid.Row="0" Margin="0,0,0,32">
+                <TextBlock Text="Settings" FontSize="24" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" LetterSpacing="0.5" />
+                <TextBlock Text="Manage your account, preferences, and system configurations." FontSize="13" Foreground="{StaticResource TextLightBrush}" Margin="0,4,0,0" />
+            </StackPanel>
+
+            <!-- Settings Content -->
+            <StackPanel Grid.Row="1" Spacing="32" MaxWidth="800" HorizontalAlignment="Left">
+                
+                <!-- Models & Agents Section -->
+                <StackPanel Spacing="16">
+                    <TextBlock Text="Models &amp; Agents" FontSize="16" FontWeight="SemiBold" Foreground="{StaticResource TextDarkBrush}" />
+                    <Border Background="{StaticResource CardBackgroundBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="8" Padding="24" BoxShadow="0 2 8 0 #05000000">
+                        <Grid RowDefinitions="Auto" ColumnDefinitions="200, *">
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Default AI Model" VerticalAlignment="Center" Foreground="{StaticResource TextLightBrush}" FontSize="13" />
+                            <ComboBox Grid.Row="0" Grid.Column="1" SelectedItem="{Binding SelectedModel}" HorizontalAlignment="Stretch">
+                                <ComboBoxItem>GPT-4</ComboBoxItem>
+                                <ComboBoxItem>Claude 3 Opus</ComboBoxItem>
+                                <ComboBoxItem>Gemini 1.5 Pro</ComboBoxItem>
+                                <ComboBoxItem>Llama 3</ComboBoxItem>
+                            </ComboBox>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+                <!-- Permissions Section -->
+                <StackPanel Spacing="16">
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Permissions" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" />
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="Configure global allowed and denied resource permissions." FontSize="13" Foreground="{StaticResource TextLightBrush}" />
+                            <TextBlock Text="Learn more." FontSize="13" Foreground="{StaticResource PrimaryBrush}" Cursor="Hand" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Project-Specific Settings -->
+                    <Border Background="{StaticResource CardBackgroundBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="8" Padding="20" BoxShadow="0 2 8 0 #05000000">
+                        <StackPanel Spacing="12">
+                            <TextBlock Text="Project-Specific Settings" FontSize="15" FontWeight="SemiBold" Foreground="{StaticResource TextDarkBrush}" />
+                            <TextBlock Text="Modify scoped permissions, folders, and agent settings like Sandbox and Terminal Command Execution." FontSize="13" Foreground="{StaticResource TextLightBrush}" />
+                            <Button Classes="Primary" HorizontalAlignment="Left" Padding="16,8" CornerRadius="4">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock Text="Go To Projects" FontWeight="SemiBold" />
+                                    <materialIcons:MaterialIcon Kind="ChevronDown" Width="16" Height="16" />
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- File Permissions -->
+                    <StackPanel Spacing="8" Margin="0,8,0,0">
+                        <TextBlock Text="File Permissions" FontSize="15" FontWeight="SemiBold" Foreground="{StaticResource TextDarkBrush}" />
+                        <Border Background="{StaticResource CardBackgroundBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="8" Padding="20" BoxShadow="0 2 8 0 #05000000">
+                            <Grid ColumnDefinitions="*, Auto">
+                                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                    <TextBlock Text="File Access Rules" FontSize="14" FontWeight="SemiBold" Foreground="{StaticResource TextDarkBrush}" />
+                                    <TextBlock Text="Configure allowed and denied paths for file reads and writes." FontSize="13" Foreground="{StaticResource TextLightBrush}" Margin="0,4,0,0" />
+                                </StackPanel>
+                                <Button Grid.Column="1" Classes="Outline" Content="Open" VerticalAlignment="Center" Padding="16,6" CornerRadius="4" />
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Network Permissions -->
+                    <StackPanel Spacing="8" Margin="0,8,0,0">
+                        <TextBlock Text="Network Permissions" FontSize="15" FontWeight="SemiBold" Foreground="{StaticResource TextDarkBrush}" />
+                        <Border Background="{StaticResource CardBackgroundBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="8" Padding="20" BoxShadow="0 2 8 0 #05000000">
+                            <Grid ColumnDefinitions="*, Auto">
+                                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                    <TextBlock Text="Network Access Rules" FontSize="14" FontWeight="SemiBold" Foreground="{StaticResource TextDarkBrush}" />
+                                    <TextBlock Text="Configure allowed and denied URLs for reading." FontSize="13" Foreground="{StaticResource TextLightBrush}" Margin="0,4,0,0" />
+                                </StackPanel>
+                                <Button Grid.Column="1" Classes="Outline" Content="Open" VerticalAlignment="Center" Padding="16,6" CornerRadius="4" />
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Terminal & Tooling Permissions -->
+                    <StackPanel Spacing="8" Margin="0,8,0,0">
+                        <TextBlock Text="Terminal &amp; Tooling Permissions" FontSize="15" FontWeight="SemiBold" Foreground="{StaticResource TextDarkBrush}" />
+                        <Border Background="{StaticResource CardBackgroundBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="8" Padding="20" BoxShadow="0 2 8 0 #05000000">
+                            <StackPanel Spacing="16">
+                                <Grid ColumnDefinitions="*, Auto">
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="Terminal Commands" FontSize="14" FontWeight="SemiBold" Foreground="{StaticResource TextDarkBrush}" />
+                                        <TextBlock Text="Configure allowed terminal commands." FontSize="13" Foreground="{StaticResource TextLightBrush}" Margin="0,4,0,0" />
+                                    </StackPanel>
+                                    <Button Grid.Column="1" Classes="Outline" Content="Open" VerticalAlignment="Center" Padding="16,6" CornerRadius="4" />
+                                </Grid>
+                                
+                                <Border Height="1" Background="{StaticResource BorderBrush}" />
+                                
+                                <Grid ColumnDefinitions="*, Auto">
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="Commands Outside Sandbox" FontSize="14" FontWeight="SemiBold" Foreground="{StaticResource TextDarkBrush}" />
+                                        <TextBlock Text="Configure allowed commands outside the sandbox." FontSize="13" Foreground="{StaticResource TextLightBrush}" Margin="0,4,0,0" />
+                                    </StackPanel>
+                                    <Button Grid.Column="1" Classes="Outline" Content="Open" VerticalAlignment="Center" Padding="16,6" CornerRadius="4" />
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+
+                
+                <!-- Customization Section -->
+                <StackPanel Spacing="16">
+                    <TextBlock Text="Customizations" FontSize="16" FontWeight="SemiBold" Foreground="{StaticResource TextDarkBrush}" />
+                    <Border Background="{StaticResource CardBackgroundBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="8" Padding="24" BoxShadow="0 2 8 0 #05000000">
+                        <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="200, *">
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Theme Appearance" VerticalAlignment="Center" Foreground="{StaticResource TextLightBrush}" FontSize="13" />
+                            <ToggleSwitch Grid.Row="0" Grid.Column="1" OnContent="Dark Mode" OffContent="Light Mode" IsChecked="{Binding IsDarkModeEnabled}" />
+                            
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Usage Analytics" VerticalAlignment="Center" Foreground="{StaticResource TextLightBrush}" FontSize="13" Margin="0,16,0,0" />
+                            <ToggleSwitch Grid.Row="1" Grid.Column="1" Margin="0,16,0,0" OnContent="Enabled" OffContent="Disabled" IsChecked="{Binding IsAnalyticsEnabled}" />
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+                <!-- Danger Zone Section -->
+                <StackPanel Spacing="16">
+                    <TextBlock Text="Danger Zone" FontSize="16" FontWeight="SemiBold" Foreground="#D32F2F" />
+                    <Border Background="#1AFFE0E0" BorderBrush="#D32F2F" BorderThickness="1" CornerRadius="8" Padding="24" BoxShadow="0 2 8 0 #05000000">
+                        <Grid RowDefinitions="Auto" ColumnDefinitions="*, Auto">
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock Text="Delete Project" FontWeight="SemiBold" Foreground="{StaticResource TextDarkBrush}" FontSize="14" />
+                                <TextBlock Text="Once you delete a project, there is no going back. Please be certain." Foreground="{StaticResource TextLightBrush}" FontSize="12" Margin="0,4,0,0" />
+                            </StackPanel>
+                            
+                            <Button Grid.Column="1" Content="Delete Project" Background="#D32F2F" Foreground="White" FontWeight="SemiBold" CornerRadius="4" Padding="16,8" VerticalAlignment="Center" Command="{Binding DeleteProjectCommand}" />
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+                <!-- Action Buttons -->
+                <StackPanel Orientation="Horizontal" Spacing="16" HorizontalAlignment="Right" Margin="0,16,0,32">
+                    <Button Classes="Outline" Content="Cancel" Width="100" HorizontalContentAlignment="Center" />
+                    <Button Classes="Primary" Content="Save Changes" Width="140" HorizontalContentAlignment="Center" />
+                </StackPanel>
+
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>
