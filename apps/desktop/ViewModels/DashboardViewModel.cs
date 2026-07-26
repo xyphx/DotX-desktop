@@ -20,6 +20,15 @@ public partial class DashboardViewModel : ViewModelBase
     [ObservableProperty]
     private bool _isNotificationVisible;
 
+    [ObservableProperty]
+    private bool _isSidebarOpen = true;
+
+    [RelayCommand]
+    public void ToggleSidebar()
+    {
+        IsSidebarOpen = !IsSidebarOpen;
+    }
+
     public DashboardViewModel()
     {
         // Default page

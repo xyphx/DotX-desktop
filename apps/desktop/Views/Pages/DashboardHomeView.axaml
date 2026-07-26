@@ -4,23 +4,25 @@
              xmlns:vm="using:DotX.Desktop.ViewModels.Pages"
              x:DataType="vm:DashboardHomeViewModel"
              x:Class="DotX.Desktop.Views.Pages.DashboardHomeView">
-    <Grid RowDefinitions="Auto, *" Margin="32">
+    <ScrollViewer>
+        <Grid RowDefinitions="Auto, *" Margin="32">
         <!-- Header -->
         <controls:HeaderControl Grid.Row="0" />
 
-        <!-- Content Area Grid -->
-        <Grid Grid.Row="1" ColumnDefinitions="*, 300">
+        <!-- Content Area -->
+        <WrapPanel Grid.Row="1" Orientation="Horizontal" Margin="0,16,0,0">
             <!-- Left Content -->
-            <StackPanel Grid.Column="0" Spacing="24" Margin="0,0,32,0">
+            <StackPanel Spacing="24" Margin="0,0,32,32" MinWidth="500" MaxWidth="900">
                 <controls:WizardStepsControl />
                 <controls:DocumentUploadControl DataContext="{Binding DocumentUpload}" />
             </StackPanel>
 
             <!-- Right Sidebar -->
-            <StackPanel Grid.Column="1" Spacing="24">
+            <StackPanel Spacing="24" Width="300" Margin="0,0,0,32">
                 <controls:ProjectProgressControl />
                 <controls:AgentsListControl DataContext="{Binding AgentsList}" />
             </StackPanel>
+        </WrapPanel>
         </Grid>
-    </Grid>
+    </ScrollViewer>
 </UserControl>
