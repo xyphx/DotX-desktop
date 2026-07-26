@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:DotX.Desktop.Controls"
+             xmlns:vm="using:DotX.Desktop.ViewModels.Pages"
+             x:DataType="vm:DashboardHomeViewModel"
+             x:Class="DotX.Desktop.Views.Pages.DashboardHomeView">
+    <Grid RowDefinitions="Auto, *" Margin="32">
+        <!-- Header -->
+        <controls:HeaderControl Grid.Row="0" />
+
+        <!-- Content Area Grid -->
+        <Grid Grid.Row="1" ColumnDefinitions="*, 300">
+            <!-- Left Content -->
+            <StackPanel Grid.Column="0" Spacing="24" Margin="0,0,32,0">
+                <controls:WizardStepsControl />
+                <controls:DocumentUploadControl DataContext="{Binding DocumentUpload}" />
+            </StackPanel>
+
+            <!-- Right Sidebar -->
+            <StackPanel Grid.Column="1" Spacing="24">
+                <controls:ProjectProgressControl />
+                <controls:AgentsListControl DataContext="{Binding AgentsList}" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>
