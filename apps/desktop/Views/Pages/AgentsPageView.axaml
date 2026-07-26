@@ -1,0 +1,20 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:DotX.Desktop.Controls"
+             xmlns:vm="using:DotX.Desktop.ViewModels.Pages"
+             x:DataType="vm:AgentsPageViewModel"
+             x:Class="DotX.Desktop.Views.Pages.AgentsPageView">
+    
+    <Grid RowDefinitions="Auto, *" Margin="32">
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,32">
+            <TextBlock Text="AI Agents" FontSize="24" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" LetterSpacing="0.5" />
+            <TextBlock Text="Manage and monitor the AI agents currently active in your workspace." FontSize="13" Foreground="{StaticResource TextLightBrush}" Margin="0,4,0,0" />
+        </StackPanel>
+
+        <!-- Agents List -->
+        <ScrollViewer Grid.Row="1">
+            <controls:AgentsListControl DataContext="{Binding AgentsList}" HorizontalAlignment="Left" Width="500" />
+        </ScrollViewer>
+    </Grid>
+</UserControl>

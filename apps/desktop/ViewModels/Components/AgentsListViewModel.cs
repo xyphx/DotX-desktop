@@ -9,6 +9,9 @@ public partial class AgentsListViewModel : ViewModelBase
     [ObservableProperty]
     private ObservableCollection<AgentModel> _agents;
 
+    [ObservableProperty]
+    private bool _isViewAllButtonVisible = true;
+
     public AgentsListViewModel()
     {
         _agents = new ObservableCollection<AgentModel>
