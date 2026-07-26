@@ -5,7 +5,7 @@
              x:DataType="vm:SidebarViewModel"
              x:Class="DotX.Desktop.Controls.SidebarControl">
     <Border Background="{StaticResource SidebarBackgroundBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,1,0">
-        <Grid RowDefinitions="Auto, *, Auto, Auto" Margin="0,16,0,16">
+        <Grid RowDefinitions="Auto, *, Auto" Margin="0,16,0,16">
             <!-- Header Section (Logo + New Project) -->
             <StackPanel Grid.Row="0" Margin="16,0,16,32">
                 <StackPanel Orientation="Horizontal" Spacing="16" Margin="0,0,0,24">
@@ -48,15 +48,9 @@
                 </ListBox.Styles>
             </ListBox>
 
-            <!-- Inline Pro Upgrade -->
-            <StackPanel Grid.Row="2" Margin="16,16,16,24" Spacing="8">
-                <TextBlock Text="Unlock .X Pro" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource TextDarkBrush}" />
-                <TextBlock Text="Advanced agents and private workspaces." FontSize="11" Foreground="{StaticResource TextLightBrush}" TextWrapping="Wrap" />
-                <Button Content="Upgrade" Classes="Outline" HorizontalAlignment="Left" Padding="12,6" FontSize="11" Command="{Binding UpgradeCommand}" />
-            </StackPanel>
 
             <!-- Footer Section -->
-            <StackPanel Grid.Row="3" Margin="16,0,16,0" Spacing="16">
+            <StackPanel Grid.Row="2" Margin="16,0,16,0" Spacing="16">
                 <!-- Help -->
                 <StackPanel Orientation="Horizontal" Spacing="8">
                     <materialIcons:MaterialIcon Kind="HelpCircleOutline" Width="16" Height="16" Foreground="{StaticResource TextLightBrush}" />
