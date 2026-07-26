@@ -22,7 +22,7 @@
             </StackPanel>
 
             <!-- Navigation List -->
-            <ListBox Grid.Row="1" ItemsSource="{Binding NavItems}" Background="Transparent" BorderThickness="0">
+            <ListBox Grid.Row="1" ItemsSource="{Binding NavItems}" SelectedItem="{Binding SelectedNavItem}" Background="Transparent" BorderThickness="0">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Background="Transparent" Margin="8,2">

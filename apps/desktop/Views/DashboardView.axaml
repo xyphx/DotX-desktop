@@ -38,26 +38,18 @@
             <!-- Sidebar -->
             <controls:SidebarControl Grid.Column="0" DataContext="{Binding Sidebar}" />
 
-            <!-- Main Content -->
-            <Grid Grid.Column="1" RowDefinitions="Auto, *" Margin="32">
-                <!-- Header -->
-                <controls:HeaderControl Grid.Row="0" />
-
-                <!-- Content Area Grid -->
-                <Grid Grid.Row="1" ColumnDefinitions="*, 300">
-                    <!-- Left Content -->
-                    <StackPanel Grid.Column="0" Spacing="24" Margin="0,0,32,0">
-                        <controls:WizardStepsControl />
-                        <controls:DocumentUploadControl DataContext="{Binding DocumentUpload}" />
-                    </StackPanel>
-
-                    <!-- Right Sidebar -->
-                    <StackPanel Grid.Column="1" Spacing="24">
-                        <controls:ProjectProgressControl />
-                        <controls:AgentsListControl DataContext="{Binding AgentsList}" />
-                    </StackPanel>
-                </Grid>
-            </Grid>
+            <!-- Main Content Area -->
+            <TransitioningContentControl Grid.Column="1" Content="{Binding CurrentPage}" />
         </Grid>
+        
+        <!-- Notification Toast -->
+        <Border Grid.Row="1" Background="{StaticResource PrimaryBrush}" 
+                CornerRadius="8" Padding="16,12" 
+                HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,24"
+                IsVisible="{Binding IsNotificationVisible}"
+                ZIndex="100"
+                BoxShadow="0 4 12 0 #40000000">
+            <TextBlock Text="{Binding NotificationMessage}" Foreground="White" FontWeight="SemiBold" FontSize="14" />
+        </Border>
     </Grid>
 </UserControl>
