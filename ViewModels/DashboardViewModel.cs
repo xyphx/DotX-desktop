@@ -5,11 +5,13 @@ using DotX.Desktop.Messages;
 using DotX.Desktop.ViewModels.Components;
 using DotX.Desktop.ViewModels.Pages;
 
+using DotX.Desktop.Models;
+
 namespace DotX.Desktop.ViewModels;
 
 public partial class DashboardViewModel : ViewModelBase
 {
-    public SidebarViewModel Sidebar { get; } = new();
+    public SidebarViewModel Sidebar { get; }
 
     [ObservableProperty]
     private ViewModelBase _currentPage;
@@ -29,8 +31,9 @@ public partial class DashboardViewModel : ViewModelBase
         IsSidebarOpen = !IsSidebarOpen;
     }
 
-    public DashboardViewModel()
+    public DashboardViewModel(UserModel? user = null)
     {
+        Sidebar = new SidebarViewModel(user);
         // Default page
         _currentPage = new DashboardHomeViewModel();
 

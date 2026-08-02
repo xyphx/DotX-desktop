@@ -43,8 +43,11 @@
                     <TextBox Text="{Binding ApiKey}" Watermark="Paste your API key here..." PasswordChar="•" FontSize="13" Padding="12" CornerRadius="6" Background="{StaticResource BackgroundBrush}" BorderBrush="{StaticResource BorderBrush}"/>
                 </StackPanel>
 
+                <!-- Error Message Display -->
+                <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" FontSize="12" HorizontalAlignment="Center" TextWrapping="Wrap" IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+
                 <!-- Login Button -->
-                <Button Classes="Primary" Content="Login" HorizontalAlignment="Stretch" Padding="0,12" FontSize="14" FontWeight="Bold" Command="{Binding LoginCommand}" Margin="0,16,0,0"/>
+                <Button Classes="Primary" Content="Login" HorizontalAlignment="Stretch" Padding="0,12" FontSize="14" FontWeight="Bold" Command="{Binding LoginAsyncCommand}" IsEnabled="{Binding !IsLoggingIn}" Margin="0,8,0,0"/>
             </StackPanel>
         </Border>
     </Grid>

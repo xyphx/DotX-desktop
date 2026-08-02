@@ -1,29 +1,97 @@
 using System;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DotX.Desktop.Models;
+using DotX.Desktop.Services;
 
 namespace DotX.Desktop.ViewModels;
 
 public partial class LoginViewModel : ViewModelBase
 {
-    private readonly Action _onLoginSuccess;
+    private readonly Action<UserModel> _onLoginSuccess;
 
     [ObservableProperty]
     private string _apiKey = string.Empty;
 
-    public LoginViewModel(Action onLoginSuccess)
+    [ObservableProperty]
+    private string _errorMessage = string.Empty;
+
+    [ObservableProperty]
+    private bool _isLoggingIn;
+
+    public LoginViewModel(Action<UserModel> onLoginSuccess)
     {
         _onLoginSuccess = onLoginSuccess;
     }
 
     [RelayCommand]
-    public void Login()
+    public async Task LoginAsync()
     {
-        if (!string.IsNullOrWhiteSpace(ApiKey))
+        if (string.IsNullOrWhiteSpace(ApiKey))
         {
-            _onLoginSuccess?.Invoke();
+            ErrorMessage = "Please enter your API key.";
+            return;
+        }
+
+        IsLoggingIn = true;
+        ErrorMessage = string.Empty;
+
+        try
+        {
+            using var client = new HttpClient();
+            var baseUrl = Environment.GetEnvironmentVariable("DOTX_API_URL") ?? "https://api.dotx.xyphx.com";
+            
+            var payload = JsonSerializer.Serialize(new { apiKey = ApiKey.Trim() });
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response;
+            try
+            {
+                response = await client.PostAsync($"{baseUrl}/api/auth/login", content);
+            }
+            catch
+            {
+                // Fallback to localhost if remote api is local
+                baseUrl = "http://localhost:5000";
+                response = await client.PostAsync($"{baseUrl}/api/auth/login", content);
+            }
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var err = await response.Content.ReadAsStringAsync();
+                ErrorMessage = string.IsNullOrWhiteSpace(err) ? "Invalid API Key." : err;
+                return;
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+            var user = JsonSerializer.Deserialize<UserModel>(json, new JsonSerializerOptions 
+            { 
+                PropertyNameCaseInsensitive = true 
+            });
+
+            if (user != null)
+            {
+                UserSession.Instance.CurrentUser = user;
+                _onLoginSuccess?.Invoke(user);
+            }
+            else
+            {
+                ErrorMessage = "Failed to parse user data.";
+            }
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = $"Login error: {ex.Message}";
+        }
+        finally
+        {
+            IsLoggingIn = false;
         }
     }
 

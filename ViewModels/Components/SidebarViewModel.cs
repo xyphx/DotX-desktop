@@ -3,11 +3,15 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DotX.Desktop.Models;
+using DotX.Desktop.Services;
 
 namespace DotX.Desktop.ViewModels.Components;
 
 public partial class SidebarViewModel : ViewModelBase
 {
+    [ObservableProperty]
+    private UserModel? _currentUser;
+
     [ObservableProperty]
     private ObservableCollection<NavItemModel> _navItems;
 
@@ -23,8 +27,10 @@ public partial class SidebarViewModel : ViewModelBase
         }
     }
 
-    public SidebarViewModel()
+    public SidebarViewModel(UserModel? user = null)
     {
+        CurrentUser = user ?? UserSession.Instance.CurrentUser;
+
         _navItems = new ObservableCollection<NavItemModel>
         {
             new NavItemModel { Title = "Dashboard", Icon = "ViewDashboard" },
