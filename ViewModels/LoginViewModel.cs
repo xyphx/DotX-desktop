@@ -53,23 +53,16 @@ public partial class LoginViewModel : ViewModelBase
 
         try
         {
-            using var client = new HttpClient();
-            var baseUrl = Environment.GetEnvironmentVariable("DOTX_API_URL") ?? "https://api.dotx.xyphx.com";
-            
-            var payload = JsonSerializer.Serialize(new { apiKey = ApiKey.Trim(), password = Password.Trim() });
-            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+            var payload = new 
+            { 
+                apiKey = ApiKey.Trim(), 
+                password = Password.Trim(),
+                deviceId = Guid.NewGuid().ToString(),
+                deviceName = Environment.MachineName,
+                platform = RuntimeInformation.OSDescription
+            };
 
-            HttpResponseMessage response;
-            try
-            {
-                response = await client.PostAsync($"{baseUrl}/api/auth/login", content);
-            }
-            catch
-            {
-                // Fallback to localhost if remote api is local
-                baseUrl = "http://localhost:5000";
-                response = await client.PostAsync($"{baseUrl}/api/auth/login", content);
-            }
+            var response = await ApiGatewayClient.Instance.PostAsync("/api/auth/login", payload);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -79,13 +72,21 @@ public partial class LoginViewModel : ViewModelBase
             }
 
             var json = await response.Content.ReadAsStringAsync();
-            var user = JsonSerializer.Deserialize<UserModel>(json, new JsonSerializerOptions 
+            using var doc = JsonDocument.Parse(json);
+            
+            var root = doc.RootElement;
+            var accessToken = root.GetProperty("accessToken").GetString();
+            var refreshToken = root.GetProperty("refreshToken").GetString();
+            
+            var userElement = root.GetProperty("user");
+            var user = JsonSerializer.Deserialize<UserModel>(userElement.GetRawText(), new JsonSerializerOptions 
             { 
                 PropertyNameCaseInsensitive = true 
             });
 
-            if (user != null)
+            if (user != null && !string.IsNullOrEmpty(accessToken) && !string.IsNullOrEmpty(refreshToken))
             {
+                UserSession.Instance.SetTokens(accessToken, refreshToken);
                 UserSession.Instance.CurrentUser = user;
                 _onLoginSuccess?.Invoke(user);
             }
