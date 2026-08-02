@@ -7,7 +7,7 @@
              x:Class="DotX.Desktop.Views.Pages.ProfilePageView">
     <ScrollViewer>
         <StackPanel Margin="32" Spacing="24">
-            <TextBlock Text="User Profile" FontSize="28" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" />
+            <TextBlock Text="Profile" FontSize="28" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" />
             
             <Border Background="{StaticResource CardBackgroundBrush}" CornerRadius="12" Padding="32" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
                 <StackPanel Spacing="32">
