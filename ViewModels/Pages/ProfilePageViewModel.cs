@@ -1,5 +1,8 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using DotX.Desktop.Models;
+using DotX.Desktop.Messages;
 using DotX.Desktop.Services;
 
 namespace DotX.Desktop.ViewModels.Pages;
@@ -14,9 +17,9 @@ public partial class ProfilePageViewModel : ViewModelBase
         _currentUser = UserSession.Instance.CurrentUser ?? new UserModel();
     }
 
-    [CommunityToolkit.Mvvm.Input.RelayCommand]
+    [RelayCommand]
     public void Logout()
     {
-        CommunityToolkit.Mvvm.Messaging.WeakReferenceMessenger.Default.Send(new DotX.Desktop.Messages.LogoutMessage());
+        WeakReferenceMessenger.Default.Send(new LogoutMessage());
     }
 }

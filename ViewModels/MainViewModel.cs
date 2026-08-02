@@ -1,5 +1,8 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
 using DotX.Desktop.Models;
+using DotX.Desktop.Messages;
+using DotX.Desktop.Services;
 
 namespace DotX.Desktop.ViewModels;
 
@@ -13,9 +16,9 @@ public partial class MainViewModel : ViewModelBase
         // Start at the Login Screen
         _currentPage = new LoginViewModel(OnLoginSuccess);
 
-        CommunityToolkit.Mvvm.Messaging.WeakReferenceMessenger.Default.Register<DotX.Desktop.Messages.LogoutMessage>(this, (r, m) =>
+        WeakReferenceMessenger.Default.Register<LogoutMessage>(this, (r, m) =>
         {
-            DotX.Desktop.Services.UserSession.Instance.CurrentUser = null;
+            UserSession.Instance.CurrentUser = null;
             CurrentPage = new LoginViewModel(OnLoginSuccess);
         });
     }
