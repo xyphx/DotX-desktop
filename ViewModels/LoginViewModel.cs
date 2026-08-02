@@ -20,6 +20,9 @@ public partial class LoginViewModel : ViewModelBase
     private string _apiKey = string.Empty;
 
     [ObservableProperty]
+    private string _password = string.Empty;
+
+    [ObservableProperty]
     private string _errorMessage = string.Empty;
 
     [ObservableProperty]
@@ -39,6 +42,12 @@ public partial class LoginViewModel : ViewModelBase
             return;
         }
 
+        if (string.IsNullOrWhiteSpace(Password) || Password.Length != 6)
+        {
+            ErrorMessage = "Please enter a valid 6-digit PIN.";
+            return;
+        }
+
         IsLoggingIn = true;
         ErrorMessage = string.Empty;
 
@@ -47,7 +56,7 @@ public partial class LoginViewModel : ViewModelBase
             using var client = new HttpClient();
             var baseUrl = Environment.GetEnvironmentVariable("DOTX_API_URL") ?? "https://api.dotx.xyphx.com";
             
-            var payload = JsonSerializer.Serialize(new { apiKey = ApiKey.Trim() });
+            var payload = JsonSerializer.Serialize(new { apiKey = ApiKey.Trim(), password = Password.Trim() });
             var content = new StringContent(payload, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response;

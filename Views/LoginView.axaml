@@ -43,6 +43,12 @@
                     <TextBox Text="{Binding ApiKey}" Watermark="Paste your API key here..." PasswordChar="•" FontSize="13" Padding="12" CornerRadius="6" Background="{StaticResource BackgroundBrush}" BorderBrush="{StaticResource BorderBrush}"/>
                 </StackPanel>
 
+                <!-- Security PIN Input -->
+                <StackPanel Spacing="8">
+                    <TextBlock Text="Security PIN" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource TextDarkBrush}"/>
+                    <TextBox Text="{Binding Password}" Watermark="Enter your 6-digit PIN..." PasswordChar="•" MaxLength="6" FontSize="13" Padding="12" CornerRadius="6" Background="{StaticResource BackgroundBrush}" BorderBrush="{StaticResource BorderBrush}"/>
+                </StackPanel>
+
                 <!-- Error Message Display -->
                 <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" FontSize="12" HorizontalAlignment="Center" TextWrapping="Wrap" IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
 
