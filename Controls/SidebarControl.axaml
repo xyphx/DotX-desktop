@@ -53,10 +53,12 @@
             <!-- Footer Section -->
             <StackPanel Grid.Row="2" Margin="16,0,16,0" Spacing="16">
                 <!-- Help -->
-                <StackPanel Orientation="Horizontal" Spacing="8">
-                    <materialIcons:MaterialIcon Kind="HelpCircleOutline" Width="16" Height="16" Foreground="{StaticResource TextLightBrush}" />
-                    <TextBlock Text="Support" FontSize="13" Foreground="{StaticResource TextLightBrush}" />
-                </StackPanel>
+                <Button Command="{Binding OpenSupportCommand}" Background="Transparent" BorderThickness="0" Padding="0" Cursor="Hand" ToolTip.Tip="Contact us at support@xyphx.com">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <materialIcons:MaterialIcon Kind="HelpCircleOutline" Width="16" Height="16" Foreground="{StaticResource TextLightBrush}" />
+                        <TextBlock Text="Support" FontSize="13" Foreground="{StaticResource TextLightBrush}" />
+                    </StackPanel>
+                </Button>
 
                 <!-- Profile -->
                 <Button Command="{Binding OpenProfileCommand}" Background="Transparent" BorderThickness="0" Padding="0" HorizontalAlignment="Stretch" Cursor="Hand">

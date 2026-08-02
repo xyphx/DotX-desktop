@@ -62,4 +62,17 @@ public partial class SidebarViewModel : ViewModelBase
         SelectedNavItem = null;
         CommunityToolkit.Mvvm.Messaging.WeakReferenceMessenger.Default.Send(new AppNavigationMessage("Profile"));
     }
+
+    [RelayCommand]
+    public void OpenSupport()
+    {
+        try
+        {
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("mailto:support@xyphx.com") { UseShellExecute = true });
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Failed to open email client: {ex.Message}");
+        }
+    }
 }
