@@ -13,4 +13,10 @@ public partial class ProfilePageViewModel : ViewModelBase
     {
         _currentUser = UserSession.Instance.CurrentUser ?? new UserModel();
     }
+
+    [CommunityToolkit.Mvvm.Input.RelayCommand]
+    public void Logout()
+    {
+        CommunityToolkit.Mvvm.Messaging.WeakReferenceMessenger.Default.Send(new DotX.Desktop.Messages.LogoutMessage());
+    }
 }

@@ -14,7 +14,7 @@
                     <!-- Avatar and Header -->
                     <StackPanel Orientation="Horizontal" Spacing="24">
                         <Border Background="{StaticResource PrimaryBrush}" CornerRadius="64" Width="96" Height="96">
-                            <TextBlock Text="{Binding CurrentUser.Initials}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" FontWeight="Bold" Foreground="White" />
+                            <TextBlock Text="{Binding CurrentUser.Initials}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" FontWeight="Bold" Foreground="{StaticResource BackgroundBrush}" />
                         </Border>
                         
                         <StackPanel VerticalAlignment="Center" Spacing="8">
@@ -56,6 +56,11 @@
                             </Border>
                         </StackPanel>
                     </Grid>
+                    
+                    <Border Height="1" Background="{StaticResource BorderBrush}" />
+                    
+                    <!-- Actions -->
+                    <Button Classes="Danger" Content="Logout" Command="{Binding LogoutCommand}" HorizontalAlignment="Right" Padding="24,10" FontWeight="Bold" />
                 </StackPanel>
             </Border>
         </StackPanel>
