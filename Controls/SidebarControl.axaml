@@ -31,17 +31,27 @@
             <ListBox Grid.Row="1" ItemsSource="{Binding NavItems}" SelectedItem="{Binding SelectedNavItem}" Background="Transparent" BorderThickness="0">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Grid Background="Transparent" Margin="8,2">
+                        <Grid Background="Transparent" Margin="8,2" Classes.IsActive="{Binding IsActive}">
                             <!-- Subtle highlight for active state -->
-                            <Border Background="{StaticResource CardBackgroundBrush}" 
+                            <Border Name="ActiveBorder"
+                                    Background="{StaticResource CardBackgroundBrush}" 
                                     IsVisible="{Binding IsActive}" 
                                     CornerRadius="6" />
+                            
+                            <!-- Left Accent Line -->
+                            <Border IsVisible="{Binding IsActive}"
+                                    Background="{StaticResource PrimaryBrush}"
+                                    Width="3"
+                                    HorizontalAlignment="Left"
+                                    CornerRadius="3"
+                                    Margin="0,6,0,6"/>
+
                             <StackPanel Orientation="Horizontal" Spacing="10" Margin="12,8">
-                                <materialIcons:MaterialIcon Kind="{Binding Icon}" 
+                                <materialIcons:MaterialIcon Name="NavIcon" Kind="{Binding Icon}" 
                                                           Width="16" Height="16" 
-                                                          Foreground="{Binding IsActive, Converter={x:Static ObjectConverters.IsNull}}" /> 
-                                <TextBlock Text="{Binding Title}" FontSize="13" VerticalAlignment="Center" 
-                                         Foreground="{Binding IsActive, Converter={x:Static ObjectConverters.IsNull}}" /> 
+                                                          Foreground="{StaticResource TextLightBrush}" /> 
+                                <TextBlock Name="NavText" Text="{Binding Title}" FontSize="13" VerticalAlignment="Center" 
+                                         Foreground="{StaticResource TextLightBrush}" /> 
                             </StackPanel>
                         </Grid>
                     </DataTemplate>
@@ -51,6 +61,7 @@
                         <Setter Property="Padding" Value="0"/>
                         <Setter Property="MinHeight" Value="32"/>
                         <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Cursor" Value="Hand"/>
                     </Style>
                     <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
                         <Setter Property="Background" Value="Transparent"/>
@@ -60,6 +71,19 @@
                     </Style>
                     <Style Selector="ListBoxItem:selected:pointerover /template/ ContentPresenter#PART_ContentPresenter">
                         <Setter Property="Background" Value="Transparent"/>
+                    </Style>
+                    
+                    <!-- Selected Item Styling -->
+                    <Style Selector="Grid.IsActive Border#ActiveBorder">
+                        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                    </Style>
+                    <Style Selector="Grid.IsActive materialIcons|MaterialIcon#NavIcon">
+                        <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}" />
+                    </Style>
+                    <Style Selector="Grid.IsActive TextBlock#NavText">
+                        <Setter Property="Foreground" Value="{StaticResource TextDarkBrush}" />
+                        <Setter Property="FontWeight" Value="SemiBold" />
                     </Style>
                 </ListBox.Styles>
             </ListBox>
