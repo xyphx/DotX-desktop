@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:vm="using:DotX.Desktop.ViewModels.Components"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
              x:DataType="vm:SidebarViewModel"
              x:Class="DotX.Desktop.Controls.SidebarControl">
     <Border Background="{StaticResource SidebarBackgroundBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,1,0">
@@ -60,8 +61,11 @@
                 <!-- Profile -->
                 <Button Command="{Binding OpenProfileCommand}" Background="Transparent" BorderThickness="0" Padding="0" HorizontalAlignment="Stretch" Cursor="Hand">
                     <Grid ColumnDefinitions="Auto, *, Auto" Background="Transparent">
-                        <Border Grid.Column="0" Background="{StaticResource BorderBrush}" CornerRadius="4" Width="24" Height="24">
-                            <TextBlock Text="{Binding CurrentUser.Initials, FallbackValue='U'}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold" FontSize="10" Foreground="{StaticResource TextDarkBrush}" />
+                        <Border Grid.Column="0" Background="{StaticResource BorderBrush}" CornerRadius="4" Width="24" Height="24" ClipToBounds="True">
+                            <Panel>
+                                <TextBlock Text="{Binding CurrentUser.Initials, FallbackValue='U'}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold" FontSize="10" Foreground="{StaticResource TextDarkBrush}" />
+                                <Image asyncImageLoader:ImageLoader.Source="{Binding CurrentUser.Picture}" Stretch="UniformToFill" />
+                            </Panel>
                         </Border>
                         <StackPanel Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Center">
                             <TextBlock Text="{Binding CurrentUser.Name, FallbackValue='User'}" FontWeight="SemiBold" FontSize="13" Foreground="{StaticResource TextDarkBrush}" />

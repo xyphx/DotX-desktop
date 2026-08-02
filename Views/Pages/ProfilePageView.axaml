@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:DotX.Desktop.ViewModels.Pages"
              xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
              x:DataType="vm:ProfilePageViewModel"
              x:Class="DotX.Desktop.Views.Pages.ProfilePageView">
     <ScrollViewer>
@@ -13,8 +14,11 @@
                     
                     <!-- Avatar and Header -->
                     <StackPanel Orientation="Horizontal" Spacing="24">
-                        <Border Background="{StaticResource PrimaryBrush}" CornerRadius="64" Width="96" Height="96">
-                            <TextBlock Text="{Binding CurrentUser.Initials}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" FontWeight="Bold" Foreground="{StaticResource BackgroundBrush}" />
+                        <Border Background="{StaticResource PrimaryBrush}" CornerRadius="64" Width="96" Height="96" ClipToBounds="True">
+                            <Panel>
+                                <TextBlock Text="{Binding CurrentUser.Initials}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" FontWeight="Bold" Foreground="{StaticResource BackgroundBrush}" />
+                                <Image asyncImageLoader:ImageLoader.Source="{Binding CurrentUser.Picture}" Stretch="UniformToFill" />
+                            </Panel>
                         </Border>
                         
                         <StackPanel VerticalAlignment="Center" Spacing="8">
