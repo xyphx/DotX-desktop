@@ -53,7 +53,7 @@
                 <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" FontSize="12" HorizontalAlignment="Center" TextWrapping="Wrap" IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
 
                 <!-- Login Button -->
-                <Button Classes="Primary" Content="Login" HorizontalAlignment="Stretch" Padding="0,12" FontSize="14" FontWeight="Bold" Command="{Binding LoginAsyncCommand}" IsEnabled="{Binding !IsLoggingIn}" Margin="0,8,0,0"/>
+                <Button Classes="Primary" Content="Login" HorizontalAlignment="Stretch" Padding="0,12" FontSize="14" FontWeight="Bold" Command="{Binding LoginCommand}" IsEnabled="{Binding !IsLoggingIn}" Margin="0,8,0,0"/>
             </StackPanel>
         </Border>
     </Grid>
