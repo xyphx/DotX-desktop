@@ -59,6 +59,11 @@ public partial class DashboardViewModel : ViewModelBase
                 });
             });
         });
+
+        WeakReferenceMessenger.Default.Register<AppNavigationMessage>(this, (r, m) =>
+        {
+            NavigateTo(m.Value);
+        });
     }
 
     private void NavigateTo(string? title)
@@ -82,6 +87,10 @@ public partial class DashboardViewModel : ViewModelBase
         else if (title == "Settings")
         {
             CurrentPage = new SettingsPageViewModel();
+        }
+        else if (title == "Profile")
+        {
+            CurrentPage = new ProfilePageViewModel();
         }
         else
         {

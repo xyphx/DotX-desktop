@@ -1,0 +1,63 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:DotX.Desktop.ViewModels.Pages"
+             xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             x:DataType="vm:ProfilePageViewModel"
+             x:Class="DotX.Desktop.Views.Pages.ProfilePageView">
+    <ScrollViewer>
+        <StackPanel Margin="32" Spacing="24">
+            <TextBlock Text="User Profile" FontSize="28" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" />
+            
+            <Border Background="{StaticResource CardBackgroundBrush}" CornerRadius="12" Padding="32" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
+                <StackPanel Spacing="32">
+                    
+                    <!-- Avatar and Header -->
+                    <StackPanel Orientation="Horizontal" Spacing="24">
+                        <Border Background="{StaticResource PrimaryBrush}" CornerRadius="64" Width="96" Height="96">
+                            <TextBlock Text="{Binding CurrentUser.Initials}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" FontWeight="Bold" Foreground="White" />
+                        </Border>
+                        
+                        <StackPanel VerticalAlignment="Center" Spacing="8">
+                            <TextBlock Text="{Binding CurrentUser.Name}" FontSize="24" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" />
+                            <TextBlock Text="{Binding CurrentUser.Email}" FontSize="14" Foreground="{StaticResource TextLightBrush}" />
+                            
+                            <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,4,0,0">
+                                <materialIcons:MaterialIcon Kind="ShieldCheck" Width="14" Height="14" Foreground="#10B981" />
+                                <TextBlock Text="Verified Account" FontSize="12" Foreground="#10B981" FontWeight="SemiBold" />
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                    
+                    <Border Height="1" Background="{StaticResource BorderBrush}" />
+                    
+                    <!-- Details -->
+                    <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto,*" Margin="0,8,0,0">
+                        <Grid.Styles>
+                            <Style Selector="TextBlock.Label">
+                                <Setter Property="Foreground" Value="{StaticResource TextLightBrush}" />
+                                <Setter Property="FontSize" Value="13" />
+                                <Setter Property="FontWeight" Value="SemiBold" />
+                                <Setter Property="Margin" Value="0,0,32,16" />
+                            </Style>
+                            <Style Selector="TextBlock.Value">
+                                <Setter Property="Foreground" Value="{StaticResource TextDarkBrush}" />
+                                <Setter Property="FontSize" Value="14" />
+                                <Setter Property="Margin" Value="0,0,0,16" />
+                            </Style>
+                        </Grid.Styles>
+                        
+                        <TextBlock Grid.Row="0" Grid.Column="0" Classes="Label" Text="Account ID" />
+                        <TextBlock Grid.Row="0" Grid.Column="1" Classes="Value" Text="{Binding CurrentUser.Id}" />
+                        
+                        <TextBlock Grid.Row="1" Grid.Column="0" Classes="Label" Text="Auth Provider" />
+                        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Spacing="8" Margin="0,0,0,16">
+                            <Border Background="{StaticResource BorderBrush}" CornerRadius="4" Padding="8,4">
+                                <TextBlock Text="{Binding CurrentUser.AuthProvider}" FontSize="12" Foreground="{StaticResource TextDarkBrush}" FontWeight="Bold" />
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

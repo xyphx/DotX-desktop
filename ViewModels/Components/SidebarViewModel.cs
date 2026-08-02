@@ -4,6 +4,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DotX.Desktop.Models;
 using DotX.Desktop.Services;
+using DotX.Desktop.Messages;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace DotX.Desktop.ViewModels.Components;
 
@@ -52,5 +54,12 @@ public partial class SidebarViewModel : ViewModelBase
     public void Upgrade()
     {
         Console.WriteLine("Upgrade Requested");
+    }
+
+    [RelayCommand]
+    public void OpenProfile()
+    {
+        SelectedNavItem = null;
+        CommunityToolkit.Mvvm.Messaging.WeakReferenceMessenger.Default.Send(new AppNavigationMessage("Profile"));
     }
 }
