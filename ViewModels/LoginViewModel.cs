@@ -108,7 +108,7 @@ public partial class LoginViewModel : ViewModelBase
     [RelayCommand]
     public void OpenConsole()
     {
-        var url = "https://xyphx.com/";
+        var url = "https://xyphx.com/console";
         try
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
