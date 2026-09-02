@@ -5,16 +5,16 @@
              x:DataType="vm:AgentsPageViewModel"
              x:Class="DotX.Desktop.Views.Pages.AgentsPageView">
     
-    <Grid RowDefinitions="Auto, *" Margin="32">
+    <Grid RowDefinitions="Auto, *" Margin="24,16">
         <!-- Header -->
-        <StackPanel Grid.Row="0" Margin="0,0,0,32">
-            <TextBlock Text="AI Agents" FontSize="24" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" LetterSpacing="0.5" />
-            <TextBlock Text="Manage and monitor the AI agents currently active in your workspace." FontSize="13" Foreground="{StaticResource TextLightBrush}" Margin="0,4,0,0" />
+        <StackPanel Grid.Row="0" Margin="0,0,0,24">
+            <TextBlock Text="AI Agents" FontSize="24" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" LetterSpacing="0.5" TextWrapping="Wrap" />
+            <TextBlock Text="Manage and monitor the AI agents currently active in your workspace." FontSize="13" Foreground="{StaticResource TextLightBrush}" Margin="0,4,0,0" TextWrapping="Wrap" />
         </StackPanel>
 
         <!-- Agents List -->
         <ScrollViewer Grid.Row="1">
-            <controls:AgentsListControl DataContext="{Binding AgentsList}" HorizontalAlignment="Left" Width="500" />
+            <controls:AgentsListControl DataContext="{Binding AgentsList}" HorizontalAlignment="Stretch" MaxWidth="700" />
         </ScrollViewer>
     </Grid>
 </UserControl>

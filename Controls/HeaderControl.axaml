@@ -1,10 +1,10 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="DotX.Desktop.Controls.HeaderControl">
-    <Grid ColumnDefinitions="*, Auto" Margin="0,0,0,32">
-        <StackPanel Grid.Column="0" Spacing="4">
-            <TextBlock Text="New Project" FontSize="24" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" LetterSpacing="0.5" />
-            <TextBlock Text="Provide requirements to initialize the AI development environment." FontSize="13" Foreground="{StaticResource TextLightBrush}" />
+    <Grid ColumnDefinitions="*, Auto" Margin="0,0,0,24">
+        <StackPanel Grid.Column="0" Spacing="4" Margin="0,0,16,0">
+            <TextBlock Text="New Project" FontSize="24" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" LetterSpacing="0.5" TextWrapping="Wrap" />
+            <TextBlock Text="Provide requirements to initialize the AI development environment." FontSize="13" Foreground="{StaticResource TextLightBrush}" TextWrapping="Wrap" />
         </StackPanel>
         <Button Grid.Column="1" Classes="Outline" Content="View Projects" VerticalAlignment="Top" Padding="12,6" FontSize="12" />
     </Grid>

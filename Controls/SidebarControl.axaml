@@ -109,7 +109,7 @@
                             </Panel>
                         </Border>
                         <StackPanel Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Center">
-                            <TextBlock Text="{Binding CurrentUser.Name, FallbackValue='User'}" FontWeight="SemiBold" FontSize="13" Foreground="{StaticResource TextDarkBrush}" />
+                            <TextBlock Text="{Binding CurrentUser.Name, FallbackValue='User'}" FontWeight="SemiBold" FontSize="13" Foreground="{StaticResource TextDarkBrush}" TextTrimming="CharacterEllipsis" />
                         </StackPanel>
                         <materialIcons:MaterialIcon Grid.Column="2" Kind="UnfoldMoreHorizontal" Width="16" Height="16" Foreground="{StaticResource TextLightBrush}" />
                     </Grid>

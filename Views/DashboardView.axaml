@@ -8,34 +8,39 @@
     <Grid RowDefinitions="Auto, *">
         <!-- Top Menu Bar -->
         <Border Grid.Row="0" Background="{StaticResource SidebarBackgroundBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,0,1">
-            <Grid Margin="8,0">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Spacing="8">
-                    <Button Command="{Binding ToggleSidebarCommand}" Background="Transparent" BorderThickness="0" VerticalAlignment="Center" Margin="0,0,8,0" Cursor="Hand">
-                        <materialIcons:MaterialIcon Kind="Menu" Width="20" Height="20" Foreground="{StaticResource TextDarkBrush}" />
+            <Grid ColumnDefinitions="Auto, *" Margin="8,0">
+                <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" Spacing="4">
+                    <Button Command="{Binding ToggleSidebarCommand}" Background="Transparent" BorderThickness="0" VerticalAlignment="Center" Margin="0,0,4,0" Padding="6" Cursor="Hand">
+                        <materialIcons:MaterialIcon Kind="Menu" Width="18" Height="18" Foreground="{StaticResource TextDarkBrush}" />
                     </Button>
-                    <Menu>
-                        <Menu.Styles>
-                            <Style Selector="MenuItem">
-                                <Setter Property="FontSize" Value="12" />
-                                <Setter Property="Padding" Value="10,6" />
-                                <Setter Property="MinHeight" Value="30" />
-                            </Style>
-                        </Menu.Styles>
-                        <MenuItem Header="File" />
-                        <MenuItem Header="Edit" />
-                        <MenuItem Header="Selection" />
-                        <MenuItem Header="View" />
-                        <MenuItem Header="Go" />
-                        <MenuItem Header="Run" />
-                        <MenuItem Header="Terminal" />
-                        <MenuItem Header="Help" />
-                    </Menu>
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                        <Menu>
+                            <Menu.Styles>
+                                <Style Selector="MenuItem">
+                                    <Setter Property="FontSize" Value="12" />
+                                    <Setter Property="Padding" Value="8,6" />
+                                    <Setter Property="MinHeight" Value="30" />
+                                </Style>
+                            </Menu.Styles>
+                            <MenuItem Header="File" />
+                            <MenuItem Header="Edit" />
+                            <MenuItem Header="Selection" />
+                            <MenuItem Header="View" />
+                            <MenuItem Header="Go" />
+                            <MenuItem Header="Run" />
+                            <MenuItem Header="Terminal" />
+                            <MenuItem Header="Help" />
+                        </Menu>
+                    </ScrollViewer>
                 </StackPanel>
                 
-                <TextBlock Text="desktop - DotX IDE - Project.axaml" 
-                           HorizontalAlignment="Center" 
+                <TextBlock Grid.Column="1"
+                           Text="desktop - DotX IDE" 
+                           HorizontalAlignment="Right" 
                            VerticalAlignment="Center" 
                            FontSize="12" 
+                           Margin="16,0,8,0"
+                           TextTrimming="CharacterEllipsis"
                            Foreground="{StaticResource TextLightBrush}" />
             </Grid>
         </Border>

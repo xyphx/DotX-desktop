@@ -9,6 +9,10 @@
         x:DataType="vm:MainViewModel"
         Title="DotX"
         Icon="/Assets/logo.png"
+        Width="1280"
+        Height="800"
+        MinWidth="400"
+        MinHeight="500"
         Background="{StaticResource BackgroundBrush}"
         WindowStartupLocation="CenterScreen">
 

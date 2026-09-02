@@ -8,9 +8,9 @@
     <StackPanel Spacing="32" Margin="0,16,0,0">
         <!-- Step Header -->
         <Grid ColumnDefinitions="*, Auto">
-            <StackPanel Grid.Column="0" Spacing="4">
-                <TextBlock Text="01. Document Upload" FontSize="16" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" LetterSpacing="0.5" />
-                <TextBlock Text="Attach architectural guidelines and product requirements." FontSize="13" Foreground="{StaticResource TextLightBrush}" />
+            <StackPanel Grid.Column="0" Spacing="4" Margin="0,0,16,0">
+                <TextBlock Text="01. Document Upload" FontSize="16" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" LetterSpacing="0.5" TextWrapping="Wrap" />
+                <TextBlock Text="Attach architectural guidelines and product requirements." FontSize="13" Foreground="{StaticResource TextLightBrush}" TextWrapping="Wrap" />
             </StackPanel>
             <Button Grid.Column="1" Classes="Outline" Content="View Guidelines" VerticalAlignment="Top" Padding="12,6" FontSize="12" />
         </Grid>
@@ -19,12 +19,12 @@
         <ItemsControl ItemsSource="{Binding Documents}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid Rows="1" Columns="3" />
+                    <WrapPanel Orientation="Horizontal" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="6" Margin="4,0" Padding="16">
+                    <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="6" Margin="0,0,16,16" Padding="16" MinWidth="220" MaxWidth="340" Width="260">
                         <Grid RowDefinitions="Auto, Auto, Auto, *, Auto">
                             
                             <!-- Header (Title & Badge) -->
@@ -61,9 +61,9 @@
         </ItemsControl>
 
         <!-- Footer Actions -->
-        <Grid ColumnDefinitions="Auto, *, Auto" Margin="4,16,4,0">
-            <Button Grid.Column="0" Classes="Outline" Content="Validate" Padding="16,8" FontSize="12" Command="{Binding ValidateCommand}" />
-            <Button Grid.Column="2" Classes="Primary" Content="Proceed to Agents" Padding="16,8" FontSize="12" Command="{Binding ProceedCommand}" />
-        </Grid>
+        <WrapPanel Orientation="Horizontal" Margin="0,16,0,0">
+            <Button Classes="Outline" Content="Validate" Padding="16,8" FontSize="12" Command="{Binding ValidateCommand}" Margin="0,0,12,8" />
+            <Button Classes="Primary" Content="Proceed to Agents" Padding="16,8" FontSize="12" Command="{Binding ProceedCommand}" Margin="0,0,0,8" />
+        </WrapPanel>
     </StackPanel>
 </UserControl>

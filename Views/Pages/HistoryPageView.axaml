@@ -5,16 +5,16 @@
              x:DataType="vm:HistoryPageViewModel"
              x:Class="DotX.Desktop.Views.Pages.HistoryPageView">
     
-    <Grid RowDefinitions="Auto, *" Margin="32">
+    <Grid RowDefinitions="Auto, *" Margin="24,16">
         <!-- Header -->
-        <StackPanel Grid.Row="0" Margin="0,0,0,32">
-            <TextBlock Text="Prompt History" FontSize="24" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" LetterSpacing="0.5" />
-            <TextBlock Text="Review the history of prompts you've sent to your AI agents." FontSize="13" Foreground="{StaticResource TextLightBrush}" Margin="0,4,0,0" />
+        <StackPanel Grid.Row="0" Margin="0,0,0,24">
+            <TextBlock Text="Prompt History" FontSize="24" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" LetterSpacing="0.5" TextWrapping="Wrap" />
+            <TextBlock Text="Review the history of prompts you've sent to your AI agents." FontSize="13" Foreground="{StaticResource TextLightBrush}" Margin="0,4,0,0" TextWrapping="Wrap" />
         </StackPanel>
 
         <!-- Prompts List -->
         <ScrollViewer Grid.Row="1">
-            <ItemsControl ItemsSource="{Binding Prompts}">
+            <ItemsControl ItemsSource="{Binding Prompts}" MaxWidth="900" HorizontalAlignment="Stretch">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border Background="{StaticResource CardBackgroundBrush}" 

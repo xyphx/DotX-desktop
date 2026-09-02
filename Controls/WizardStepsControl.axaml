@@ -2,33 +2,35 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="DotX.Desktop.Controls.WizardStepsControl">
     <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,0,1" Padding="0,0,0,16" Margin="0,0,0,24">
-        <Grid ColumnDefinitions="Auto,*,Auto,*,Auto,*,Auto">
-            <!-- Step 1 -->
-            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
-                <TextBlock Text="01" Foreground="{StaticResource PrimaryBrush}" FontWeight="Bold" FontSize="11" VerticalAlignment="Center" />
-                <TextBlock Text="Requirements" FontWeight="SemiBold" FontSize="13" Foreground="{StaticResource TextDarkBrush}" VerticalAlignment="Center" />
-            </StackPanel>
-            <Border Grid.Column="1" Height="1" Background="{StaticResource PrimaryBrush}" Margin="16,0" />
-            
-            <!-- Step 2 -->
-            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center" Opacity="0.4">
-                <TextBlock Text="02" Foreground="{StaticResource TextDarkBrush}" FontWeight="Bold" FontSize="11" VerticalAlignment="Center" />
-                <TextBlock Text="Agents" FontWeight="SemiBold" FontSize="13" Foreground="{StaticResource TextDarkBrush}" VerticalAlignment="Center" />
-            </StackPanel>
-            <Border Grid.Column="3" Height="1" Background="{StaticResource BorderBrush}" Margin="16,0" />
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+            <Grid ColumnDefinitions="Auto,*,Auto,*,Auto,*,Auto" MinWidth="460">
+                <!-- Step 1 -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                    <TextBlock Text="01" Foreground="{StaticResource PrimaryBrush}" FontWeight="Bold" FontSize="11" VerticalAlignment="Center" />
+                    <TextBlock Text="Requirements" FontWeight="SemiBold" FontSize="13" Foreground="{StaticResource TextDarkBrush}" VerticalAlignment="Center" />
+                </StackPanel>
+                <Border Grid.Column="1" Height="1" Background="{StaticResource PrimaryBrush}" Margin="12,0" MinWidth="16" />
+                
+                <!-- Step 2 -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center" Opacity="0.4">
+                    <TextBlock Text="02" Foreground="{StaticResource TextDarkBrush}" FontWeight="Bold" FontSize="11" VerticalAlignment="Center" />
+                    <TextBlock Text="Agents" FontWeight="SemiBold" FontSize="13" Foreground="{StaticResource TextDarkBrush}" VerticalAlignment="Center" />
+                </StackPanel>
+                <Border Grid.Column="3" Height="1" Background="{StaticResource BorderBrush}" Margin="12,0" MinWidth="16" />
 
-            <!-- Step 3 -->
-            <StackPanel Grid.Column="4" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center" Opacity="0.4">
-                <TextBlock Text="03" Foreground="{StaticResource TextDarkBrush}" FontWeight="Bold" FontSize="11" VerticalAlignment="Center" />
-                <TextBlock Text="Analysis" FontWeight="SemiBold" FontSize="13" Foreground="{StaticResource TextDarkBrush}" VerticalAlignment="Center" />
-            </StackPanel>
-            <Border Grid.Column="5" Height="1" Background="{StaticResource BorderBrush}" Margin="16,0" />
+                <!-- Step 3 -->
+                <StackPanel Grid.Column="4" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center" Opacity="0.4">
+                    <TextBlock Text="03" Foreground="{StaticResource TextDarkBrush}" FontWeight="Bold" FontSize="11" VerticalAlignment="Center" />
+                    <TextBlock Text="Analysis" FontWeight="SemiBold" FontSize="13" Foreground="{StaticResource TextDarkBrush}" VerticalAlignment="Center" />
+                </StackPanel>
+                <Border Grid.Column="5" Height="1" Background="{StaticResource BorderBrush}" Margin="12,0" MinWidth="16" />
 
-            <!-- Step 4 -->
-            <StackPanel Grid.Column="6" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center" Opacity="0.4">
-                <TextBlock Text="04" Foreground="{StaticResource TextDarkBrush}" FontWeight="Bold" FontSize="11" VerticalAlignment="Center" />
-                <TextBlock Text="Development" FontWeight="SemiBold" FontSize="13" Foreground="{StaticResource TextDarkBrush}" VerticalAlignment="Center" />
-            </StackPanel>
-        </Grid>
+                <!-- Step 4 -->
+                <StackPanel Grid.Column="6" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center" Opacity="0.4">
+                    <TextBlock Text="04" Foreground="{StaticResource TextDarkBrush}" FontWeight="Bold" FontSize="11" VerticalAlignment="Center" />
+                    <TextBlock Text="Development" FontWeight="SemiBold" FontSize="13" Foreground="{StaticResource TextDarkBrush}" VerticalAlignment="Center" />
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
     </Border>
 </UserControl>

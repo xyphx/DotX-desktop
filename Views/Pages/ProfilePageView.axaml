@@ -6,31 +6,31 @@
              x:DataType="vm:ProfilePageViewModel"
              x:Class="DotX.Desktop.Views.Pages.ProfilePageView">
     <ScrollViewer>
-        <StackPanel Margin="32" Spacing="24">
+        <StackPanel Margin="24,16" Spacing="24" MaxWidth="700" HorizontalAlignment="Stretch">
             <TextBlock Text="Profile" FontSize="28" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" />
             
-            <Border Background="{StaticResource CardBackgroundBrush}" CornerRadius="12" Padding="32" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
-                <StackPanel Spacing="32">
+            <Border Background="{StaticResource CardBackgroundBrush}" CornerRadius="12" Padding="24" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
+                <StackPanel Spacing="24">
                     
                     <!-- Avatar and Header -->
-                    <StackPanel Orientation="Horizontal" Spacing="24">
-                        <Border Background="{StaticResource PrimaryBrush}" CornerRadius="64" Width="96" Height="96" ClipToBounds="True">
+                    <WrapPanel Orientation="Horizontal">
+                        <Border Background="{StaticResource PrimaryBrush}" CornerRadius="48" Width="80" Height="80" ClipToBounds="True" Margin="0,0,20,16">
                             <Panel>
-                                <TextBlock Text="{Binding CurrentUser.Initials}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" FontWeight="Bold" Foreground="{StaticResource BackgroundBrush}" />
+                                <TextBlock Text="{Binding CurrentUser.Initials}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="32" FontWeight="Bold" Foreground="{StaticResource BackgroundBrush}" />
                                 <Image asyncImageLoader:ImageLoader.Source="{Binding CurrentUser.Picture}" Stretch="UniformToFill" />
                             </Panel>
                         </Border>
                         
-                        <StackPanel VerticalAlignment="Center" Spacing="8">
-                            <TextBlock Text="{Binding CurrentUser.Name}" FontSize="24" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" />
-                            <TextBlock Text="{Binding CurrentUser.Email}" FontSize="14" Foreground="{StaticResource TextLightBrush}" />
+                        <StackPanel VerticalAlignment="Center" Spacing="6" Margin="0,0,0,16">
+                            <TextBlock Text="{Binding CurrentUser.Name}" FontSize="22" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" TextWrapping="Wrap" />
+                            <TextBlock Text="{Binding CurrentUser.Email}" FontSize="14" Foreground="{StaticResource TextLightBrush}" TextWrapping="Wrap" />
                             
                             <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,4,0,0">
                                 <materialIcons:MaterialIcon Kind="ShieldCheck" Width="14" Height="14" Foreground="#10B981" />
                                 <TextBlock Text="Verified Account" FontSize="12" Foreground="#10B981" FontWeight="SemiBold" />
                             </StackPanel>
                         </StackPanel>
-                    </StackPanel>
+                    </WrapPanel>
                     
                     <Border Height="1" Background="{StaticResource BorderBrush}" />
                     
@@ -41,12 +41,13 @@
                                 <Setter Property="Foreground" Value="{StaticResource TextLightBrush}" />
                                 <Setter Property="FontSize" Value="13" />
                                 <Setter Property="FontWeight" Value="SemiBold" />
-                                <Setter Property="Margin" Value="0,0,32,16" />
+                                <Setter Property="Margin" Value="0,0,24,16" />
                             </Style>
                             <Style Selector="TextBlock.Value">
                                 <Setter Property="Foreground" Value="{StaticResource TextDarkBrush}" />
                                 <Setter Property="FontSize" Value="14" />
                                 <Setter Property="Margin" Value="0,0,0,16" />
+                                <Setter Property="TextWrapping" Value="Wrap" />
                             </Style>
                         </Grid.Styles>
                         
