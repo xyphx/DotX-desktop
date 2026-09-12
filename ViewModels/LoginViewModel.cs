@@ -179,7 +179,12 @@ public partial class LoginViewModel : ViewModelBase
     [RelayCommand]
     public void OpenConsole()
     {
-        var url = "https://xyphx.com/console";
+        var url = Environment.GetEnvironmentVariable("XYPHX_CONSOLE_URL");
+        if (string.IsNullOrWhiteSpace(url))
+        {
+            Console.WriteLine("[ERROR] Missing required environment variable 'XYPHX_CONSOLE_URL'.");
+            throw new InvalidOperationException("Missing required environment variable 'XYPHX_CONSOLE_URL'.");
+        }
         try
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))

@@ -18,7 +18,13 @@ public class ApiGatewayClient
     private ApiGatewayClient()
     {
         _httpClient = new HttpClient();
-        _baseUrl = Environment.GetEnvironmentVariable("DOTX_API_URL") ?? "https://api.dotx.xyphx.com";
+        var url = Environment.GetEnvironmentVariable("DOTX_API_URL");
+        if (string.IsNullOrWhiteSpace(url))
+        {
+            Console.WriteLine("[ERROR] Missing required environment variable 'DOTX_API_URL'.");
+            throw new InvalidOperationException("Missing required environment variable 'DOTX_API_URL'.");
+        }
+        _baseUrl = url;
     }
 
     public async Task<HttpResponseMessage> PostAsync(string endpoint, object? data = null)
