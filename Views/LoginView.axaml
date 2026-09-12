@@ -51,7 +51,12 @@
                     </StackPanel>
 
                     <!-- Error Message Display -->
-                    <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" FontSize="12" HorizontalAlignment="Center" TextWrapping="Wrap" IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                    <Border Background="#2A1517" BorderBrush="#E54D2E" BorderThickness="1" CornerRadius="8" Padding="12,10" IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                        <Grid ColumnDefinitions="Auto, *">
+                            <TextBlock Grid.Column="0" Text="⚠" Foreground="#E54D2E" FontSize="13" FontWeight="Bold" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="1" Text="{Binding ErrorMessage}" Foreground="#FF8B8B" FontSize="12" VerticalAlignment="Center" TextWrapping="Wrap" LineHeight="16"/>
+                        </Grid>
+                    </Border>
 
                     <!-- Login Button -->
                     <Button Classes="Primary" Content="Login" HorizontalAlignment="Stretch" Padding="0,12" FontSize="14" FontWeight="Bold" Command="{Binding LoginCommand}" IsEnabled="{Binding !IsLoggingIn}" Margin="0,4,0,0"/>

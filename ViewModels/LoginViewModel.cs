@@ -67,7 +67,7 @@ public partial class LoginViewModel : ViewModelBase
             if (!response.IsSuccessStatusCode)
             {
                 var err = await response.Content.ReadAsStringAsync();
-                ErrorMessage = FormatErrorMessage(err);
+                ErrorMessage = FormatErrorMessage(err, response.StatusCode);
                 return;
             }
 
@@ -109,12 +109,67 @@ public partial class LoginViewModel : ViewModelBase
         }
     }
 
-    private static string FormatErrorMessage(string? rawError)
+    private static string FormatErrorMessage(string? rawError, System.Net.HttpStatusCode? statusCode = null)
     {
+        // 1. Check HTTP status code first
+        if (statusCode.HasValue)
+        {
+            switch (statusCode.Value)
+            {
+                case System.Net.HttpStatusCode.BadGateway: // 502
+                    return "The server is currently unavailable (502 Bad Gateway). Please try again in a moment.";
+                case System.Net.HttpStatusCode.ServiceUnavailable: // 503
+                    return "The service is temporarily undergoing maintenance (503). Please try again shortly.";
+                case System.Net.HttpStatusCode.GatewayTimeout: // 504
+                    return "Server connection timed out (504). Please check your internet connection and retry.";
+                case System.Net.HttpStatusCode.InternalServerError: // 500
+                    return "An internal server error occurred (500). Please try again later.";
+                case System.Net.HttpStatusCode.NotFound: // 404
+                    return "The authentication service endpoint was not found (404).";
+            }
+        }
+
         if (string.IsNullOrWhiteSpace(rawError))
-            return "Invalid API Key or Security PIN.";
+            return "Unable to sign in. Please verify your credentials and try again.";
 
         var clean = rawError.Trim();
+
+        // 2. Detect and handle raw HTML (e.g. from Nginx, proxies, or gateways)
+        if (clean.Contains("<html", StringComparison.OrdinalIgnoreCase) ||
+            clean.Contains("<!DOCTYPE", StringComparison.OrdinalIgnoreCase) ||
+            clean.Contains("<body", StringComparison.OrdinalIgnoreCase) ||
+            clean.Contains("<center>", StringComparison.OrdinalIgnoreCase))
+        {
+            if (clean.Contains("502 Bad Gateway", StringComparison.OrdinalIgnoreCase) || clean.Contains("Bad Gateway", StringComparison.OrdinalIgnoreCase))
+            {
+                return "The server is currently unavailable (502 Bad Gateway). Please try again in a moment.";
+            }
+            if (clean.Contains("504 Gateway", StringComparison.OrdinalIgnoreCase))
+            {
+                return "The server connection timed out. Please check your internet connection and try again.";
+            }
+            if (clean.Contains("503 Service", StringComparison.OrdinalIgnoreCase))
+            {
+                return "The service is temporarily unavailable (503). Please try again shortly.";
+            }
+            if (clean.Contains("500 Internal", StringComparison.OrdinalIgnoreCase))
+            {
+                return "An internal server error occurred. Please try again later.";
+            }
+            if (clean.Contains("404 Not Found", StringComparison.OrdinalIgnoreCase))
+            {
+                return "The authentication endpoint could not be reached (404).";
+            }
+
+            var titleMatch = System.Text.RegularExpressions.Regex.Match(clean, @"<title>(.*?)</title>", System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Singleline);
+            if (titleMatch.Success && !string.IsNullOrWhiteSpace(titleMatch.Groups[1].Value))
+            {
+                var title = titleMatch.Groups[1].Value.Trim();
+                return $"Server notice: {title}. Please try again later.";
+            }
+
+            return "Unable to reach server. Please verify your network and try again.";
+        }
 
         // Trim quotation marks if the server returned a quoted JSON string
         if (clean.StartsWith("\"") && clean.EndsWith("\"") && clean.Length >= 2)
@@ -150,6 +205,10 @@ public partial class LoginViewModel : ViewModelBase
                 {
                     clean = detailProp.GetString()!;
                 }
+                else if (jsonDoc.RootElement.TryGetProperty("title", out var titleProp) && !string.IsNullOrWhiteSpace(titleProp.GetString()))
+                {
+                    clean = titleProp.GetString()!;
+                }
             }
             catch
             {
@@ -163,14 +222,25 @@ public partial class LoginViewModel : ViewModelBase
             return "Invalid API Key. Please verify your key in the console.";
         }
         
-        if (clean.Contains("Invalid PIN", StringComparison.OrdinalIgnoreCase) || clean.Contains("Invalid Password", StringComparison.OrdinalIgnoreCase) || clean.Contains("PIN", StringComparison.OrdinalIgnoreCase))
+        if (clean.Contains("Invalid PIN", StringComparison.OrdinalIgnoreCase) || 
+            clean.Contains("Invalid Password", StringComparison.OrdinalIgnoreCase) || 
+            clean.Contains("PIN is incorrect", StringComparison.OrdinalIgnoreCase) ||
+            clean.Contains("PIN", StringComparison.OrdinalIgnoreCase))
         {
             return "Invalid Security PIN. Please enter your 6-digit PIN.";
         }
 
-        if (clean.Contains("Unauthenticated", StringComparison.OrdinalIgnoreCase) || clean.Contains("Unauthorized", StringComparison.OrdinalIgnoreCase))
+        if (clean.Contains("Unauthenticated", StringComparison.OrdinalIgnoreCase) || 
+            clean.Contains("Unauthorized", StringComparison.OrdinalIgnoreCase))
         {
             return "Invalid API Key or Security PIN.";
+        }
+
+        if (clean.Contains("Connection refused", StringComparison.OrdinalIgnoreCase) || 
+            clean.Contains("No connection could be made", StringComparison.OrdinalIgnoreCase) ||
+            clean.Contains("failed to connect", StringComparison.OrdinalIgnoreCase))
+        {
+            return "Unable to connect to the server. Please check your internet connection.";
         }
 
         return clean;
