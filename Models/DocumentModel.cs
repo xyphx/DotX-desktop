@@ -23,5 +23,24 @@ public partial class DocumentModel : ObservableObject
     private string _fileSize = string.Empty;
 
     [ObservableProperty]
+    private string _fileId = string.Empty;
+
+    [ObservableProperty]
+    private string _fileUrl = string.Empty;
+
+    [ObservableProperty]
     private bool _isUploaded = false;
+
+    [ObservableProperty]
+    private bool _isUploading = false;
+
+    [ObservableProperty]
+    private string _errorMessage = string.Empty;
+
+    public bool HasError => !string.IsNullOrWhiteSpace(ErrorMessage);
+
+    partial void OnErrorMessageChanged(string value)
+    {
+        OnPropertyChanged(nameof(HasError));
+    }
 }

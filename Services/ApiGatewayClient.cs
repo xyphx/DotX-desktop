@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -24,7 +25,7 @@ public class ApiGatewayClient
             Console.WriteLine("[ERROR] Missing required environment variable 'DOTX_API_URL'.");
             throw new InvalidOperationException("Missing required environment variable 'DOTX_API_URL'.");
         }
-        _baseUrl = url;
+        _baseUrl = url.TrimEnd('/');
     }
 
     public async Task<HttpResponseMessage> PostAsync(string endpoint, object? data = null)
@@ -35,6 +36,87 @@ public class ApiGatewayClient
     public async Task<HttpResponseMessage> GetAsync(string endpoint)
     {
         return await SendRequestAsync(HttpMethod.Get, endpoint);
+    }
+
+    public async Task<HttpResponseMessage> DeleteAsync(string endpoint)
+    {
+        return await SendRequestAsync(HttpMethod.Delete, endpoint);
+    }
+
+    public async Task<HttpResponseMessage> UploadFileAsync(string endpoint, Stream fileStream, string fileName, string? projectId = null, string? userId = null, bool isRetry = false)
+    {
+        var content = new MultipartFormDataContent();
+        
+        var streamContent = new StreamContent(fileStream);
+        var ext = Path.GetExtension(fileName).ToLowerInvariant();
+        var mime = ext switch
+        {
+            ".pdf" => "application/pdf",
+            ".docx" => "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            ".doc" => "application/msword",
+            ".txt" => "text/plain",
+            ".json" => "application/json",
+            ".png" => "image/png",
+            ".jpg" or ".jpeg" => "image/jpeg",
+            _ => "application/octet-stream"
+        };
+        streamContent.Headers.ContentType = new MediaTypeHeaderValue(mime);
+        content.Add(streamContent, "file", fileName);
+
+        var uid = userId;
+        if (string.IsNullOrWhiteSpace(uid))
+        {
+            uid = UserSession.Instance.CurrentUser?.Id;
+        }
+        if (!string.IsNullOrWhiteSpace(uid))
+        {
+            content.Add(new StringContent(uid), "userId");
+        }
+
+        if (!string.IsNullOrWhiteSpace(projectId))
+        {
+            content.Add(new StringContent(projectId), "projectId");
+        }
+
+        var request = new HttpRequestMessage(HttpMethod.Post, $"{_baseUrl}{endpoint}")
+        {
+            Content = content
+        };
+
+        var token = UserSession.Instance.AccessToken;
+        if (!string.IsNullOrEmpty(token))
+        {
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        }
+
+        var response = await _httpClient.SendAsync(request);
+
+        // Handle 401 Unauthorized globally
+        if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized && !isRetry && !endpoint.Contains("/auth/"))
+        {
+            var refreshed = await RefreshTokensAsync();
+            if (refreshed)
+            {
+                if (fileStream.CanSeek)
+                {
+                    fileStream.Position = 0;
+                    return await UploadFileAsync(endpoint, fileStream, fileName, projectId, userId, true);
+                }
+            }
+            else
+            {
+                UserSession.Instance.Logout();
+            }
+        }
+
+        return response;
+    }
+
+    public async Task<HttpResponseMessage> UploadFileAsync(string endpoint, string filePath, string? projectId = null, string? userId = null)
+    {
+        using var stream = File.OpenRead(filePath);
+        var fileName = Path.GetFileName(filePath);
+        return await UploadFileAsync(endpoint, stream, fileName, projectId, userId);
     }
 
     private async Task<HttpResponseMessage> SendRequestAsync(HttpMethod method, string endpoint, object? data = null, bool isRetry = false)
